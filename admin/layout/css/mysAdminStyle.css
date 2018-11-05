@@ -1,0 +1,241 @@
+body{
+    background-color: #f4f4f4;
+    font-size: 16px;
+}
+
+.astrec
+{
+    position: absolute;
+    font-size: 30px;
+    right: 29px;
+    top: 10px;
+    color: #981f1f;
+}
+/* ///////////// dashbord page home page */
+.home-stats .stat{
+    border-radius: 4px;
+    color: #fff;
+    padding: 20px;
+}
+.home-stats .stat a{
+  color: #fff;
+}
+.home-stats .stat a:hover{
+    text-decoration: none;
+}
+
+.home-stats .stat span
+{
+    display: block;
+    font-size:60px;
+    
+}
+
+.home-stats .st-members{
+    background-color: #3498db;
+}
+.home-stats .st-pending{
+    background-color: #e74c3c;
+}
+.home-stats .st-items{
+    background-color: #e67e22;
+}
+.home-stats .st-comments{
+    background-color: #8e44ad;
+}
+.lates
+{
+    margin-top: 20px;
+}
+
+/* ////////////// Manage member page */
+.show-pass
+{
+    position: absolute;
+    top: 8px;
+    right: -20px;
+    cursor: grab; 
+    
+}
+.main-table
+{
+    margin-top: 20px;
+    box-shadow: 0 3px 10px #ccc;
+}
+
+.main-table td{
+background-color: #fff;
+vertical-align: middle !important;
+
+}
+.main-table thead {
+    background-color: #333;
+    color: #fff;
+    
+}
+
+.btn
+{
+    padding: 3px 11px
+}
+
+/* /*end Member page */
+/* ///log in */
+.login
+{
+    width: 300px;
+    margin: 100px auto;
+}
+.login .form-control
+{
+    background-color: #eaeaea;
+}
+
+.form-control
+{
+    position: relative;
+}
+
+/* //bootstrab  */
+.navbar{
+border-radius: 0%;
+}
+
+.navbar-brand
+
+{
+    font-size: 1.5em;
+} 
+.nav > li > a
+.navbar-brand
+{
+    padding: 15px 12px;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+ .navbar-inverse .navbar-nav > .open > a:hover, 
+ .navbar-inverse .navbar-nav > .open > a:focus ,
+ .dropdown-menu
+ {
+     background-color: #130f40;
+}
+
+.dropdown-menu
+  {
+   border: none;
+   padding: 0px; 
+   font-size: 1em;
+   min-width: 180px;
+   border-radius: 0%;
+  }
+
+.dropdown-menu > li > a
+{
+color: #fff;
+padding: 10px 15px;
+
+}
+
+h1
+{
+  font-weight: bold;
+  font-size: 70;
+  /* margin: 20px; */
+}
+/* ///////// Start Categories page */
+
+.add-cat-btn
+{
+    margin-bottom:15px;
+}
+.categories .panel-body
+{
+    padding:0px;
+    margin: 0px;
+}
+.categories .panel-heading
+{
+  font-weight: bold;
+  color: #959595;
+}
+
+.ordering a,.ordering span{
+    text-decoration: none;
+    cursor: pointer;
+    color: #888;
+}
+.ordering .active
+{
+    color: #eb0d0d;
+    font-weight: bold;
+}
+.cat{
+     position: relative;
+    padding: 15px;
+    padding-top: 0%;
+    overflow: hidden;
+    
+}
+.cat:hover
+{
+    background-color: #222;
+    color: #fff;
+}
+.cat:hover .hidden-btn
+{
+    right: 10px;
+}
+.hidden-btn
+{   transition:all 500ms ease-in-out;
+    position:absolute;
+    top: 10px;
+    right: -150px;
+} 
+
+.hidden-btn a
+{
+    margin-right: 4px;
+}
+
+.cat:last-of-type ~hr
+{
+    display: none;
+
+}
+.categories hr
+{
+    padding: 0;
+   
+    margin: 0%;
+}
+.cat .visible ,.cat .comment,.cat .ads
+{
+   color: #fff;
+   border-radius: 6px;
+   padding: 4px 6px;;
+   margin-right: 6px;
+}
+
+.cat .visible{
+    background-color: hsl(41, 86%, 53%)
+}
+.cat .comment{
+    background-color: #303952
+}
+.cat .ads{
+    background-color: #c0392b
+}
+
+.cat h3
+{
+    cursor: pointer;
+    margin:  10px 0;
+    color: #6a6a6a;
+    font-weight: bold;
+}
+textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+    max-height: 100px;
+}
