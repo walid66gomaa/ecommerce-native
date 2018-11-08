@@ -48,7 +48,10 @@ body{
 {
     color: #981f1f;
 }
-
+.to-togle span
+{
+    cursor: pointer;
+}
 
 
 

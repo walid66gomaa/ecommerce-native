@@ -15,7 +15,7 @@ include "init.php";
     <link rel="stylesheet" href="layout/css/profile.css">
 </head>
   <!-- start information sections  -->
-
+    <a class="btn btn-info" href="newitem.php">add new item</a>
     <div class="container">
         <div class='information block'>
         <div class="panel-group">
@@ -77,6 +77,7 @@ foreach ($items as $item) {
           <h3 id="thumbnail-label"><?=$item['name']?></h3>
           <p><?php if(strlen($item['description'])>20){echo substr($item['description'],0,60).'...';} else { echo $item['description']; }?></p>
           <p>Price:<?=$item['price']?></p>
+          <p class='date'><?=$item['addDate']?></p>
         </div>
         <div class="caption card-footer">
           <ul class="list-inline">
@@ -101,7 +102,7 @@ foreach ($items as $item) {
 
 
 
-
+<?php
 include $tmp."footer.php" ; 
 
 ?>

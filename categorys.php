@@ -19,12 +19,16 @@ foreach ($items as $item) {
           <h3 id="thumbnail-label"><?=$item['name']?></h3>
           <p><?php if(strlen($item['description'])>20){echo substr($item['description'],0,60).'...';} else { echo $item['description']; }?></p>
           <p>Price:<?=$item['price']?></p>
+          <p class='date text-right'><?=$item['addDate']?></p>
         </div>
         <div class="caption card-footer">
           <ul class="list-inline">
             <li><i class="fa fa-user"></i></li>
             <li>14</li>
+           <li class="pull-right "><a class="btn btn-primary btn-group-sm" href="oneitem.php?item_id=<?=$item['id']?>" >Details</a></li>
           </ul>
+
+         
         </div>
       </div><!-- thumbnail -->
     </div><!-- card -->

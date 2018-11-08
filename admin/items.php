@@ -90,13 +90,13 @@
     elseif($do=='add'){?>
 
         <div class="container">
-            <h1 class="text-center text-primary"> Add New Category</h1>
+            <h1 class="text-center text-primary"> Add New Item</h1>
             <form action="?do=insert" method="post" class="form-horizontal">
                
                
                  <!-- start category name section -->
                 <div class="form-group form-group-lg">
-                    <label for="" class="col-sm-2 control-label"> Category Name</label>
+                    <label for="" class="col-sm-2 control-label"> Item Name</label>
                     <div class="col-sm-10 col-md-8">
                         <input type="text" class="form-control" name="name"
                         placeholder="Name Of The Item" required="required">

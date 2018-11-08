@@ -75,3 +75,16 @@ $('.'+$(this).data('class')).fadeIn().removeClass('hidden');
 // $('form')
 
 })
+
+
+function view(element){
+    
+    if(element.value.length<50){
+        $('.'+element.name+'2').text(element.value);
+       
+    }
+    else{
+        $('.'+element.name+'2').text(element.value.substr(0, 50)+'...' );
+    }
+    
+}

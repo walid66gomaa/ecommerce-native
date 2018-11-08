@@ -216,12 +216,12 @@
             
               if(empty($name))
               {
-                  $formEditErorr[]='Name Cant be empty';
+                  $formEditErorr[]='Name Can\'t be empty';
               }
             
               if(strlen($name)<4 && !empty($name))
               {
-                  $formEditErorr[]=' Name Cant be less than 4 char';
+                  $formEditErorr[]=' Name Can\'t be less than 4 char';
               }
               
       

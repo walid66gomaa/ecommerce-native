@@ -33,7 +33,6 @@ function getuser($user_id)
 
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  function getTitle()
 {
     global $pageTitle;
@@ -48,8 +47,6 @@ function getuser($user_id)
     }
     
 }
-
-
 function redirect($errorMessa="there Is Errror",$url=null,$second=3)
 {  
     $link="";
@@ -74,13 +71,18 @@ function redirect($errorMessa="there Is Errror",$url=null,$second=3)
     echo "<div class='alert alert-warning'> you will redirect to ".$link." after .".$second." Seconds</div>";
     header("refresh:$second;url=".$url);
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 /*
 return if this value exist or not in table 
 
 */
 
-function chechItem($select,$table,$value,$id=null,$idValue=null)
+function chechExist($select,$table,$value,$id=null,$idValue=null)
 {  
    $quiry=' ';
     if($id !=null)
