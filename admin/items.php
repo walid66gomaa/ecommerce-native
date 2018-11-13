@@ -444,9 +444,7 @@
                     <div class="col-sm-10 col-md-8">
                         <select class="form-control" name="category" id="">
                         <?php 
-                        $stm=$con->prepare("SELECT id,name from categories ORDER BY name ASC");
-                        $stm->execute();
-                        $categories=$stm->fetchAll();
+                        $categories=getDate('categories','name');
                         
                    foreach($categories as $Category)
                    {
@@ -471,9 +469,7 @@
                     <div class="col-sm-10 col-md-8">
                         <select class="form-control" name="user" id="">
                         <?php 
-                        $stm=$con->prepare("SELECT user_id,userName from users ORDER BY userName ASC");
-                        $stm->execute();
-                        $users=$stm->fetchAll();
+                        $users=getDate('user','userName');
 
                    foreach($users as $user)
                    {

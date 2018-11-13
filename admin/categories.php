@@ -119,6 +119,31 @@
                             >
                     </div>
                 </div>
+           <!-- start parent section -->
+            
+             <div class="form-group form-group-md">
+                    <label for="" class="col-sm-2 control-label"> parent</label>
+                    <div class="col-sm-10 col-md-8">
+                        <select class="form-control" name="parent" id="">
+                        <option value="0">None</option>
+                        <?php 
+                      
+
+                        $categories=getDataWhere('categories','parent','0','name');
+                        
+                   foreach($categories as $Category)
+                   {
+                       echo "<option value='".$Category['id']."'>".$Category['name']."</option>";
+                   }
+
+
+                      ?>
+                         
+                        </select>
+                    </div>
+                </div>
+
+
                  <!-- start ordering section -->
                 <div class="form-group form-group-lg">
                     <label for="" class="col-sm-2 control-label"> Order</label>
@@ -203,6 +228,7 @@
               $comment       = $_POST['AllowComment'];
               $ads           = $_POST['allowAd'];
               $visibale      = $_POST['visibale'];
+              $parent        = $_POST['parent'];
             
       
               $formEditErorr=array();
@@ -236,10 +262,11 @@
       
               }
               else{
-                  $stmt=$con->prepare("INSERT INTO categories( name,description,ordering,visibility,allowComment,allowAds) 
-                  VALUES (:Zname,:Zdesc,:Zorder,:Zvis,:Zcom,:Zads)");
+                  $stmt=$con->prepare("INSERT INTO categories( name,parent,description,ordering,visibility,allowComment,allowAds) 
+                  VALUES (:Zname,:Zparent,:Zdesc,:Zorder,:Zvis,:Zcom,:Zads)");
                   $stmt->execute(array(
                       'Zname'=> $name ,
+                      'Zparent'=>$parent,
                       'Zdesc'=>$desc,
       
                       'Zorder'=>$order,
@@ -282,6 +309,38 @@
                         <input type="text" class="form-control" name="name" value='<?=$cat["name"]?>' required="required">
                     </div>
                 </div>
+                <!-- start parent section -->
+            
+             <div class="form-group form-group-md">
+                    <label for="" class="col-sm-2 control-label"> parent</label>
+                    <div class="col-sm-10 col-md-8">
+                        <select class="form-control" name="parent" id="">
+                        <option value="0">None</option>
+                        <?php 
+                      
+
+                        $categories=getDataWhere('categories','parent','0','name');
+                        
+                        foreach($categories as $Category)
+                        {
+                            echo "<option value='".$Category['id']."'";
+                            if($Category['id']==$cat['parent'])
+                            {
+                                echo 'selected';
+                            }
+     
+                            echo ">".$Category['name']."</option>"; 
+                        }
+     
+     
+                           ?>
+
+                      ?>
+                         
+                        </select>
+                    </div>
+                </div>
+
                  <!-- start descreption section -->
                 <div class="form-group form-group-lg">
                     <label for="" class="col-sm-2 control-label">Description</label>
@@ -374,6 +433,7 @@
             $comment       = $_POST['AllowComment'];
             $ads           = $_POST['allowAd'];
             $visibale      = $_POST['visibale'];
+            $parent        = $_POST['parent'];
           
     
             $formEditErorr=array();
@@ -409,9 +469,9 @@
             else{
               
 
-                $stmt=$con->prepare("UPDATE categories SET name=?,description=?,ordering=?,visibility=?,allowComment=?,allowAds=? WHERE id=?");
+                $stmt=$con->prepare("UPDATE categories SET name=?,parent=?,description=?,ordering=?,visibility=?,allowComment=?,allowAds=? WHERE id=?");
                  
-                $stmt->execute(array($name ,$desc,$order,$visibale,$comment, $ads,$cat_id));  
+                $stmt->execute(array($name ,$parent,$desc,$order,$visibale,$comment, $ads,$cat_id));  
                 $msg='<div class="alert alert-success"> Category Updeted successfuly</div>';
         
         redirect($msg,'back',4);

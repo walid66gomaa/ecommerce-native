@@ -91,3 +91,27 @@ $rows=$stm->fetchAll();
 return $rows;
 
 }
+
+function getData($table,$orderBy,$order='ASC')
+{
+global $con;
+$stm=$con->prepare("SELECT * from $table ORDER BY $orderBy $order  ");
+$stm->execute();
+$rows=$stm->fetchAll();
+return $rows;
+
+}
+
+
+function getDataWhere($table,$where,$value,$orderBy,$order='DESC')
+{
+global $con;
+$stm=$con->prepare("SELECT * 
+                    from $table 
+                    WHERE $where=$value 
+                    ORDER BY $orderBy $order  ");
+$stm->execute();
+$rows=$stm->fetchAll();
+return $rows;
+
+}

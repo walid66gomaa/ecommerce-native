@@ -25,7 +25,7 @@ else {
     <ul class="navbar-nav mr-auto navbar-right">
       
       <?php
-         $categories=getData('categories','id');
+         $categories=getDataWhere('categories','parent','0','name');
          foreach ($categories as $cat) {
            echo '<li  class="nav-item"><a class="nav-link" href="categorys.php?cat_id='.$cat['id'].'&catName='.$cat['name'].'">'.$cat['name']. '</a></li>';
          }

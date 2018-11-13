@@ -1,5 +1,19 @@
 <?php
 
+function getItems($where ,$value,$approve=null)
+{
+global $con;
+$quiry='';
+if ($approve !=null) {
+    $quiry='AND approve = '.$approve;
+}
+$stm=$con->prepare("SELECT * from items WHERE $where =? $quiry ORDER BY id ASC  ");
+$stm->execute(array($value));
+$rows=$stm->fetchAll();
+return $rows;
+
+}
+
 
 function getData($table,$orderBy,$order='ASC')
 {
@@ -31,6 +45,19 @@ function getuser($user_id)
     $row=$stmt->fetch();
     return $row;
 
+}
+
+function getcomments($item_id)
+{
+global $con;
+$stmt=$con->prepare("   SELECT comments.* ,users.userName
+                        FROM comments
+                        INNER JOIN users on comments.user_id=users.user_id
+                        WHERE item_id=?");
+
+$stmt->execute(array($item_id));
+$rows=$stmt->fetchAll();
+return $rows;
 }
 
  function getTitle()

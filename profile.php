@@ -71,7 +71,13 @@ foreach ($items as $item) {
 
   
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 card grid-item">
-      <div class="thumbnail">
+      <div class="thumbnail ">
+        <?php
+          if ($item['approve']==0) {
+           echo '<div class="approve">wait approve</div> ';
+          }
+        ?>
+       
         <img src="https://weddu.files.wordpress.com/2010/07/dancing-disco-lights-copy1.jpeg" class="">
         <div class="caption">
           <h3 id="thumbnail-label"><?=$item['name']?></h3>

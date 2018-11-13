@@ -54,7 +54,20 @@ body{
 }
 
 
-
+.thumbnail
+{
+    position: relative;
+}
+.approve
+{
+    background-color: #972F7C;
+    color: #FC1;
+    width: 103px;
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    padding: 3px 5px;
+}
 
 
 

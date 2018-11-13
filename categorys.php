@@ -3,7 +3,7 @@ session_start();
 $pageTitle=$_GET['catName'];
 
 include "init.php";
-$items=getDataWhere('items','cat_id',$_GET['cat_id'],'id');
+$items=getItems('cat_id',$_GET['cat_id'],1);
     echo '<div class="container">';
     echo'<div class="row grid">';
 foreach ($items as $item) {
