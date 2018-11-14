@@ -174,16 +174,18 @@ h1
     padding: 15px;
     padding-top: 0%;
     overflow: hidden;
+   
     
 }
 .cat:hover
 {
-    background-color: #222;
-    color: #fff;
+    box-shadow: 6px 2px 55px 0px rgba(240,231,240,1);
+    /* color: #fff; */
 }
 .cat:hover .hidden-btn
 {
     right: 10px;
+  
 }
 .hidden-btn
 {   transition:all 500ms ease-in-out;

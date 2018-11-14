@@ -106,9 +106,17 @@ return $rows;
 function getDataWhere($table,$where,$value,$orderBy,$order='DESC')
 {
 global $con;
+if ($value==NULL)
+{
+    $where= $where .' IS NULL'; 
+}
+else 
+{
+    $where =$where .' = '.$value;
+}
 $stm=$con->prepare("SELECT * 
                     from $table 
-                    WHERE $where=$value 
+                    WHERE $where
                     ORDER BY $orderBy $order  ");
 $stm->execute();
 $rows=$stm->fetchAll();

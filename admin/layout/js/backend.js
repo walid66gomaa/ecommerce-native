@@ -34,12 +34,31 @@ $('.show-pass').click(function(){
 
 }
 );
+
+
 $('.confirm').click(function(){
    return confirm('Are You Sure to Do this');
 });
+
+
 $('.cat h3').click(function(){
-  $(this).next('.full-view').fadeToggle(200);
-})
+    $(this).next('.full-view').fadeToggle(200);
+  })
+
+
+  $('.show-child').click(function(){
+
+    $(this).next('ul').fadeToggle(200).removeClass('hidden');
+    if($(this).find('i').hasClass('fa-plus'))
+    {
+        $(this).find('i').removeClass('fa-plus').addClass('fa-minus');
+    }
+    else{
+        $(this).find('i').removeClass('fa-minus').addClass('fa-plus');
+    }
+  })
+
+
 $('.ordering span').click(function(){
   $(this).addClass('active').siblings('span').removeClass('active');
   if($(this).data('view')==='full')

@@ -29,9 +29,8 @@
         {
             $sort=$_GET['sort'];
         }
-       $stm=$con->prepare("SELECT * FROM categories ORDER BY ordering $sort");
-       $stm->execute();
-       $categories=$stm->fetchAll();
+     
+       $categories=getDataWhere('categories','parent',NULL,'name');
        ?>
 
        <h1 class=" text-center text-primary"> Manage Categories</h1>
@@ -78,11 +77,26 @@
                     if($cat['visibility']==0) { echo " <span class='visible '><i class=' fa fa-eye-slash '></i> hidden</span>";}
                     if($cat['allowComment']==0) { echo " <span class='comment '><i class='fa fa-close'></i> comment is disable</span>";}
                     if($cat['allowAds']==0) { echo "  <span class='ads '><i class='fa fa-close'></i> ADs is disable</span>";}
-                echo "</div>";
+               
+                //  start child categories
+                $children=getDataWhere('categories','parent',$cat['id'],'name');
+                if(!empty($children)){
+                 ?>
+                  <span class="center-block text-success show-child"><i class="fa fa-plus"></i> child categories</span>
+                  <ul class='hidden'>
+                   <?php foreach ($children as $child) {?>
+                   <li>
+                   <a title="EDIT" class='' href='categories.php?do=edit&cat_id=<?=$child["id"]?>' ><i class='fa fa-edit'></i>  </a>
+                   <a title="DELETE" href='categories.php?do=delete&cat_id=<?=$child["id"]?>' class=' confirm'> <i class='fa fa-close'></i>  </a>
+                    <span class="text-center text-info"><?=$child['name']?></span>
+                   </li>
                  
-                
-                
-
+                 
+                 <?php
+                   } 
+                   echo '</ul>';
+                }
+                    echo "</div>";
                 echo "</div>";
                 echo "<hr>";
             }
@@ -125,11 +139,11 @@
                     <label for="" class="col-sm-2 control-label"> parent</label>
                     <div class="col-sm-10 col-md-8">
                         <select class="form-control" name="parent" id="">
-                        <option value="0">None</option>
+                        <option value='0'>None</option>
                         <?php 
                       
 
-                        $categories=getDataWhere('categories','parent','0','name');
+                        $categories=getDataWhere('categories','parent',NULL,'name');
                         
                    foreach($categories as $Category)
                    {
@@ -229,6 +243,9 @@
               $ads           = $_POST['allowAd'];
               $visibale      = $_POST['visibale'];
               $parent        = $_POST['parent'];
+              if ($parent==0) {
+                  $parent=NULL;
+              }
             
       
               $formEditErorr=array();
@@ -290,6 +307,7 @@
       }
     elseif($do=='edit'){
     $cat_id=isset($_GET['cat_id'])&& is_numeric($_GET['cat_id'])?intval($_GET['cat_id']):0;
+    
     $stmt=$con->prepare("   SELECT * FROM categories WHERE id=? LIMIT 1");
     $stmt->execute(array($cat_id));
     $cat=$stmt->fetch();
@@ -434,6 +452,9 @@
             $ads           = $_POST['allowAd'];
             $visibale      = $_POST['visibale'];
             $parent        = $_POST['parent'];
+            if ($parent==0) {
+                $parent=NULL;
+            }
           
     
             $formEditErorr=array();
