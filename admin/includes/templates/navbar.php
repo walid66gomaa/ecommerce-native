@@ -18,17 +18,15 @@
         <li><a href="items.php"> <?php echo lan('items') ?></a></li>
         <li><a href="comments.php"> <?php echo lan('COM') ?></a></li>
         <li><a href="member.php"> <?php echo lan('members') ?></a></li>
-        <li><a href="#"> <?php echo lan('stat') ?></a></li>
-        <li><a href="#"> <?php echo lan('logs') ?></a></li>
-        <li><a href="member.php?do=edit&user_id=<?=$_SESSION['user_id'] ?>">Edit Profile</a></li>
-        <li><a href="logout.php">LogOut</a></li>
+      
+     
        
       </ul>
     
       <ul class="nav navbar-nav navbar-right">
       
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Walid <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?=$_SESSION['userName']?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="member.php?do=edit&user_id=<?=$_SESSION['user_id'] ?>">Edit Profile</a></li>
             <li><a href="#">Setting</a></li>

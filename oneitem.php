@@ -15,6 +15,17 @@ include "init.php";
 <?php 
 $item_id= $item_id=isset($_GET['item_id'])&& is_numeric($_GET['item_id'])?intval($_GET['item_id']):0;
 $items=getDataWhere('items','id',$item_id,'id');
+
+
+
+
+//  increase number of item view
+$stmt=$con->prepare("UPDATE items SET  viewNum=? WHERE id=?") ;
+
+$stmt->execute(array( ++$items[0]['viewNum'],$item_id ));
+
+// 
+
     echo '<div class="container">';
     echo'<div class="row grid">';
 foreach ($items as $item) {
@@ -34,8 +45,8 @@ foreach ($items as $item) {
         </div>
         <div class="caption card-footer">
           <ul class="list-inline">
-            <li><i class="fa fa-user"></i></li>
-            <li>14</li>
+            <li><i class="fa fa-eye"></i></li>
+            <li><?=$item['viewNum']++?> </li>
           </ul>
         </div>
       </div><!-- thumbnail -->

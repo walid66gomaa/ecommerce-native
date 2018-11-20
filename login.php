@@ -5,6 +5,19 @@ if(isset($_SESSION['user']))
 {
     header('location:index.php');
 }
+
+
+   
+     
+    if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=''&& !strpos($_SERVER['HTTP_REFERER'], 'login.php')){
+        $_SESSION['previosPage']=$_SERVER['HTTP_REFERER'];
+       
+        
+    }
+  
+
+
+
 $pageTitle="login|signup";
 include "init.php";
 
@@ -102,7 +115,21 @@ include "init.php";
 
                 $_SESSION['user']=$username;
                 $_SESSION['user_id']=$row['user_id'];
-                header('location:index.php');
+
+                  //  redirect
+                $url='';
+                if(isset($_SESSION['previosPage'])){
+                    $url=$_SESSION['previosPage'];
+                   
+                }
+                else
+                {
+                    $url='index.php';  
+                   
+                }
+
+             
+                header('location:'.$url);
             exit();
             }
         }

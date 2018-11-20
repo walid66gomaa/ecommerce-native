@@ -46,6 +46,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
+      <th scope="col">image</th>
       <th scope="col">User Name</th>
       <th scope="col">Email</th>
       <th scope="col">Full Name</th>
@@ -60,6 +61,12 @@
         
         ?>
       <td scope="row"><?=$row['user_id'];?></td>
+      <td><img class="avatar" src="<?php 
+        if(empty($row['avatar'])){echo 'bb';}  
+       else {echo 'upload/user/avatar/'.$row['avatar'];} ?>" 
+       alt="image">
+  
+    </td>
       <td><?=$row['userName'];?></td>
       <td><?=$row['email'];?></td>
       <td><?=$row['fullName'];?></td>
@@ -87,31 +94,39 @@
 
      <div class="container">
         <h1 class=" text-center text-primary"> Add New Member</h1>
-        <form action="?do=saveuser" method="post" class="form-horizontal" >
+        <form action="?do=saveuser" method="post" enctype="multipart/form-data" class="form-horizontal" >
   
-            <div class="form-group form-group-lg">
+        <div class="form-group form-group-lg">
                 <label for="" class="col-sm-2  control-label"  > User Name</label>
                 <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control"  name="userName"  required="required">
+                    <input type="text" class="form-control"  name="userName"  requiredl="required">
                 </div>
             </div>
+
+              <div class="form-group form-group-lg">
+                <label for="" class="col-sm-2  control-label"  > Image</label>
+                <div class="col-sm-10 col-md-8">
+                    <input type="file" class="form-control"  name="avatar"  requiredl="required">
+                </div>
+            </div>
+
             <div class="form-group form-group-lg">
                 <label for="" class="col-sm-2 control-label"  > Full Name</label>
                 <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control"  name="fullName"  required>
+                    <input type="text" class="form-control"  name="fullName"  requiredw>
                 </div>
             </div>
             <div class="form-group form-group-lg">
                 <label for="" class="col-sm-2 control-label"> Email</label>
                 <div class="col-sm-10 col-md-8">
-                    <input type="email" class="form-control" name="email"   required>
+                    <input type="email" class="form-control" name="email"   requiredw>
                 </div>
             </div>
             <div class="form-group form-group-lg">
                 
                 <label for="" class="col-sm-2 control-label"> Password</label>
                 <div class="col-sm-10 col-md-8">
-                    <input type="password" class="form-control password" name="password"  required>
+                    <input type="password" class="form-control password" name="password"  requiredw>
                     <i class="show-pass fa fa-eye-slash fa-2x"></i>
                 </div>
             </div>
@@ -137,14 +152,36 @@ elseif($do=='saveuser')
 {
 	if($_SERVER['REQUEST_METHOD']=='POST')
 	{
-
+      $formEditErorr=array();
 		$email      = $_POST['email'];
 		$fullName   = $_POST['fullName'];
 		$userName   = $_POST['userName'];
 		$pass       = $_POST['password'];
-		$hashpass   =sha1( $pass );
+        $hashpass   =sha1( $pass );
+        
+       
+       
+        $avatarName=$_FILES['avatar']['name'];
+        $avatartype=$_FILES['avatar']['type'];
+        $avatarsize=$_FILES['avatar']['size'];
+        $avatarTmpName=$_FILES['avatar']['tmp_name'];
 
-		$formEditErorr=array();
+          if(!empty($avatarName)){
+           $avatarAllawedExtention=array("jpeg","jpg","gif","png");
+            $name_parts=explode('.',$avatarName);
+            $avatarExtention=strtolower( end ( $name_parts ) );
+          if (!in_array($avatarExtention,$avatarAllawedExtention)) {
+          $formEditErorr[]=$avatarExtention.' Extention Is Not Allawed'; 
+        }
+  if ($avatarsize>(4*1024*1024)) {
+         $formEditErorr[]='Image can\'t be larger than <strong>4MB</strong>';
+      }
+
+
+          }
+
+        
+    
 
 
 		if(!empty($_POST['password']) && strlen($_POST['password'])<4)
@@ -179,6 +216,12 @@ elseif($do=='saveuser')
 		{
 			$formEditErorr[]='email Cant be empty';
 		}
+       
+      
+
+         
+
+
 
 		if(sizeof($formEditErorr)>0){
 			foreach($formEditErorr as $error)
@@ -186,17 +229,35 @@ elseif($do=='saveuser')
 				echo '<div class="alert alert-danger">'. $error."</div>";
 			}
 
-			redirect('','back',4);
+		//redirect('','back',4);
 
 
 		}
 		else{
-			$stmt=$con->prepare("INSERT INTO users( userName,fullName,email,password,date,regstatus) 
-            VALUES (:Zname,:Zfull,:Zemail,:Zpass,now(),1)");
+
+
+
+            
+            $avatar='';
+            if(!empty($avatarName))
+            {
+               $avatar=rand(0,1000000).'_'.$avatarName;
+                    
+               $path = 'upload/user/avatar';
+               if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $targe=$path.'/'.$avatar;
+               
+            move_uploaded_file($avatarTmpName,$targe);
+            }
+           
+			$stmt=$con->prepare("INSERT INTO users( userName,fullName,avatar,email,password,date,regstatus) 
+            VALUES (:Zname,:Zfull,:Zavatar,:Zemail,:Zpass,now(),1)");
 			$stmt->execute(array(
 				'Zname'=>$userName,
 				'Zfull'=>$fullName,
-
+                'Zavatar'=>$avatar,
 				'Zemail'=>$email,
 				'Zpass'=>$hashpass
 
@@ -204,7 +265,7 @@ elseif($do=='saveuser')
 			));  
 			$msg='<div class="alert alert-success"> Usere inserted successfuly</div>';
 
-			redirect($msg,'back',4);
+			//redirect($msg,'back',1);
 		}
 
 
@@ -370,7 +431,8 @@ redirect($msg,'back',4);
         $stmt=$con->prepare("DELETE FROM users WHERE user_id=:zid");
         $stmt->bindParam('zid',$user_id);
         $stmt->execute();
-        echo $row['fullName']." deleted successfuly";
+        
+        redirect($row['fullName']." deleted successfuly",'back',1);
 
     }
     else

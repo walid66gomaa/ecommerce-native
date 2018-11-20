@@ -3,6 +3,8 @@ session_start();
 $pageTitle=$_GET['catName'];
 
 include "init.php";
+
+
 $items=getItems('cat_id',$_GET['cat_id'],1);
     echo '<div class="container">';
     echo'<div class="row grid">';
@@ -12,7 +14,7 @@ foreach ($items as $item) {
  
 
   
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 card grid-item">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 card grid-item cat-item ">
       <div class="thumbnail">
         <img src="https://weddu.files.wordpress.com/2010/07/dancing-disco-lights-copy1.jpeg" class="">
         <div class="caption">
@@ -23,9 +25,22 @@ foreach ($items as $item) {
         </div>
         <div class="caption card-footer">
           <ul class="list-inline">
-            <li><i class="fa fa-user"></i></li>
-            <li>14</li>
-           <li class="pull-right "><a class="btn btn-primary btn-group-sm" href="oneitem.php?item_id=<?=$item['id']?>" >Details</a></li>
+            <li><i class="fa fa-eye"></i></li>
+            <li><?=$item['viewNum']++?></li>
+            <li class="pull-right "><a class="btn btn-primary btn-group-sm" href="oneitem.php?item_id=<?=$item['id']?>" >Details</a></li>
+            <?php
+               if($sessionUser !='')
+               {
+            ?>
+           <li class="pull-right ">
+           <form action="buy.php" method="post">
+           <input type="hidden" name="item_id" value="<?=$item['id']?>">
+           <input type="submit" value="Buy" class="btn btn-info">
+           </form>
+           
+           </li>
+               <?php } 
+               ?>
           </ul>
 
          

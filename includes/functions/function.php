@@ -27,9 +27,17 @@ return $rows;
 function getDataWhere($table,$where,$value,$orderBy,$order='DESC')
 {
 global $con;
+if ($value==NULL)
+{
+    $where= $where .' IS NULL'; 
+}
+else 
+{
+    $where =$where .' = '.$value;
+}
 $stm=$con->prepare("SELECT * 
                     from $table 
-                    WHERE $where=$value 
+                    WHERE $where
                     ORDER BY $orderBy $order  ");
 $stm->execute();
 $rows=$stm->fetchAll();
@@ -56,6 +64,21 @@ $stmt=$con->prepare("   SELECT comments.* ,users.userName
                         WHERE item_id=?");
 
 $stmt->execute(array($item_id));
+$rows=$stmt->fetchAll();
+return $rows;
+}
+
+
+
+function getUserPurchases($user_id)
+{
+global $con;
+$stmt=$con->prepare("   SELECT items.*
+                        FROM purchases
+                        INNER JOIN items on items.id=purchases.item_id
+                        WHERE purchases.user_id=?");
+
+$stmt->execute(array($user_id));
 $rows=$stmt->fetchAll();
 return $rows;
 }

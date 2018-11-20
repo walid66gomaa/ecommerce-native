@@ -8,15 +8,12 @@ if(!isset($_SESSION['user']))
 </div>
 
 <?php }
-else {
-  echo "welcome ". $_SESSION['user'];
-  echo "<a href='profile.php'> View Profile </a>";
-}
+
 ?>   
 <!-- // ////////////////////////// -->
 
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"><?php echo lan('home_admin') ?></a>
+  <a class="navbar-brand" href="index.php"><?php echo lan('home_admin') ?></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -25,32 +22,45 @@ else {
     <ul class="navbar-nav mr-auto navbar-right">
       
       <?php
-         $categories=getDataWhere('categories','parent','0','name');
+         $categories=getDataWhere('categories','parent',NULL,'name');
          foreach ($categories as $cat) {
            echo '<li  class="nav-item"><a class="nav-link" href="categorys.php?cat_id='.$cat['id'].'&catName='.$cat['name'].'">'.$cat['name']. '</a></li>';
          }
+         
          if($sessionUser!=''){
-         echo '<li  class="nav-item"><a class="nav-link" href="profile.php">'.$sessionUser. '</a></li>';
+           $user=getuser($sessionUserId);
+         $isadmin=$user['group_id'];
+         if ($isadmin==1) {
+      
+         echo '<li  class="nav-item"><a class="nav-link" href="admin">Admin </a></li>';
          }
+        }
       ?>
       
       
     </ul>
-    <ul class="navbar-nav mr-auto navbar-right">
+
+    <?php 
+     if($sessionUser!=''){?>
+        <ul class="navbar-nav mr-auto navbar-right">
        <li class="nav-item dropdown navbar-right">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+          <?=$_SESSION['user']?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item " href="member.php?do=edit&user_id=<?=$_SESSION['user'] ?>">Edit Profile</a>
-          <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item " href="profile.php"> view profile</a>
+        <a class="dropdown-item " href="purchase.php"> purchases menu</a>
+          
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+         
           <a class="dropdown-item" href="logout.php">LogOut</a>
         </div>
       </li>
 
       </ul>
+        <?php }?>
+   
+    
 
     
   

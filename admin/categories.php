@@ -6,7 +6,7 @@
     exit();
 
     }
-    $pageTitle='Members';
+    $pageTitle='Categories';
     include"init.php" ;
 
 

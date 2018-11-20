@@ -6,7 +6,7 @@
     exit();
 
     }
-    $pageTitle='Members';
+    $pageTitle='Items';
     include"init.php" ;
 
 
@@ -46,6 +46,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
+      <th scope="col">image</th>
       <th scope="col">Item Name</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
@@ -62,6 +63,12 @@
         
         ?>
       <td scope="row"><?=$row['id'];?></td>
+      <td><img class="avatar" src="<?php 
+        if(empty($row['image'])){echo 'bb';}  
+       else {echo $row['image'];} ?>" 
+       alt="image">
+  
+    </td>
       <td><?=$row['name'];?></td>
       <td><?php if(strlen($row['description'])>20){echo substr($row['description'],0,20).'...';} else { echo $row['description']; }?></td>
       <td><?=$row['price'];?></td>
@@ -91,7 +98,7 @@
 
         <div class="container">
             <h1 class="text-center text-primary"> Add New Item</h1>
-            <form action="?do=insert" method="post" class="form-horizontal">
+            <form action="?do=insert" method="post" class="form-horizontal" enctype="multipart/form-data"  >
                
                
                  <!-- start category name section -->
@@ -102,6 +109,13 @@
                         placeholder="Name Of The Item" required="required">
                     </div>
                 </div>
+
+                  <div class="form-group form-group-lg">
+                <label for="" class="col-sm-2  control-label"  > Image</label>
+                <div class="col-sm-10 col-md-8">
+                    <input type="file" class="form-control"  name="image">
+                </div>
+                 </div>
                   <!-- start descreption section -->
                   <div class="form-group ">
                     <label for="" class="col-sm-2 control-label">Description</label>
@@ -276,8 +290,25 @@
               $cat_id        = $_POST['category'];
               $user_id        = $_POST['user'];
             
-            
-      
+             $imageName=$_FILES['image']['name']; 
+             $imagetype=$_FILES['image']['type'];
+             $imagesize=$_FILES['image']['size'];
+             $imageTmpName=$_FILES['image']['tmp_name'];
+
+             if(!empty($imageName)){
+                $imageAllawedExtention=array("jpeg","jpg","gif","png");
+                 $name_parts=explode('.',$imageName);
+                 $imageExtention=strtolower( end ( $name_parts ) );
+               if (!in_array($imageExtention,$imageAllawedExtention)) {
+               $formEditErorr[]=$imageExtention.' Extention Is Not Allawed'; 
+             }
+       if ($imagesize>(4*1024*1024)) {
+              $formEditErorr[]='Image can\'t be larger than <strong>4MB</strong>';
+           }
+     
+     
+               }
+        
               $formEditErorr=array();
       
               if(empty($name))
@@ -308,10 +339,19 @@
       
               }
               else{
-                  $stmt=$con->prepare("INSERT INTO items( name,description,price,countryMade,status,addDate,user_id,cat_id) 
-                  VALUES (:Zname,:Zdesc,:Zprice,:Zcountry,:Zstatus,now(),:Zuser,:Zcat)");
+
+                $image='';
+                if(!empty($imageName))
+                {
+                   $image=rand(0,1000000).'_'.$imageName;
+                
+                move_uploaded_file($imageTmpName,$image);
+                }
+                  $stmt=$con->prepare("INSERT INTO items( name,image,description,price,countryMade,status,addDate,user_id,cat_id) 
+                  VALUES (:Zname,:Zimage,:Zdesc,:Zprice,:Zcountry,:Zstatus,now(),:Zuser,:Zcat)");
                   $stmt->execute(array(
                       'Zname'=> $name ,
+                      'Zimage'=>$image,
                       'Zdesc'=>$desc,
                       'Zprice'=>$price,
                       'Zcountry'=>$country,
@@ -331,7 +371,7 @@
       
         }
       
-      }
+    }
 
     elseif($do=='edit'){
         $item_id=isset($_GET['item_id'])&& is_numeric($_GET['item_id'])?intval($_GET['item_id']):0;

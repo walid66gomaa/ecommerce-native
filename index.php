@@ -1,54 +1,50 @@
 <?php
 session_start();
-if(isset($_SESSION['user']))
-{
-   // header('location:dashbord.php');
-}
+$pageTitle='Home';
 
-
-
-$pageTitle='Login';
 include "init.php";
+$items=getData('items','id');
+    echo '<div class="container">';
+    echo'<div class="row grid">';
+foreach ($items as $item) {
+  ?>
 
-if($_SERVER['REQUEST_METHOD']=='POST')
-{  $username=$_POST['user'];
-    $pass=$_POST['pass'];
-    $hashpass=sha1($pass);
-    $stmt=$con->prepare("   SELECT 
-                                 userName ,password ,user_id
-                            FROM users 
-                            WHERE userName=? AND password=? AND group_id=1
-                            LIMIT 1");
-    $stmt->execute(array($username,$hashpass));
-    $row=$stmt->fetch();
-    $count=$stmt->rowCount();
+ 
 
-    if($count>0)
-    {
-       $_SESSION['user']=$username;
-      
-     //  header('location:dashbord.php');
-       //exit();
-    }
+  
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 card grid-item cat-item ">
+      <div class="thumbnail">
+        <img src="https://weddu.files.wordpress.com/2010/07/dancing-disco-lights-copy1.jpeg" class="">
+        <div class="caption">
+          <h3 id="thumbnail-label"><?=$item['name']?></h3>
+          <p><?php if(strlen($item['description'])>20){echo substr($item['description'],0,60).'...';} else { echo $item['description']; }?></p>
+          <p>Price:<?=$item['price']?></p>
+          <p class='date text-right'><?=$item['addDate']?></p>
+        </div>
+        <div class="caption card-footer">
+          <ul class="list-inline">
+            <li><i class="fa fa-eye"></i></li>
+            <li><?=$item['viewNum']++?></li>
+           <li class="pull-right "><a class="btn btn-primary btn-group-sm" href="oneitem.php?item_id=<?=$item['id']?>" >Details</a></li>
+          </ul>
+
+         
+        </div>
+      </div><!-- thumbnail -->
+    </div><!-- card -->
+    
+
+
+
+  <?php
 }
-
-
-
-
 ?>
+   </div><!-- row -->
+</div> <!-- container grid -->  
 
 
 
 
-
-<!-- <form action="" class="login" actions="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-    <h4 class="text-center">Admin Login</h4>
-<input type="text" placeholder="username" name="user" class="form-control " autocomplete="off" >
-<input type="password" placeholder="password" name="pass" class="form-control " autocomplete="off">
-<input type="submit" name="" id="" value="login" class="btn btn-primary btn-block">
-
-
-</form> -->
 
 
 
@@ -58,3 +54,4 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 include $tmp."footer.php";
 
 ?>
+
