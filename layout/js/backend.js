@@ -11,14 +11,11 @@ $(this).attr('placeholder','');
 })
 });
 
-
 $('input').each(function(){
     if($(this).attr('required')==='required'){
         $(this).after('<span class="astrec">*</span>');
     }
 });
-
-
 
 var passField=$('.password');
 ;
@@ -42,41 +39,33 @@ $('.confirm').click(function(){
    return confirm('Are You Sure to Do this');
 });
 
-
-$('.cat h3').click(function(){
-  $(this).next('.full-view').fadeToggle(200);
-})
-
-$('.ordering span').click(function(){
-  $(this).addClass('active').siblings('span').removeClass('active');
-  if($(this).data('view')==='full')
-  {
-      $('.cat .full-view').fadeIn();
-  }
-  else
-  {
-    $('.cat .full-view').fadeOut();
-}
-})
-
-
 function auto_grow(element) {
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
 }
 
-
 // display or hidden form 
-$('.to-togle span').click(function(){
+$('.signup-image-link').click(function(){
 
-$(this).addClass('selected').siblings().removeClass('selected');
-$('.login-signup form').hide();
-$('.'+$(this).data('class')).fadeIn().removeClass('hidden');
+$('.sign-in-signup section').hide();
+$('.'+$(this).data('class')).fadeIn(500).removeClass('d-none');
 // $('form')
 
 })
 
-
+$('.view-hide-comments').click(function(){
+    
+   if($(this).text()=="view All Comments")
+   { 
+    $(this).text("Hide All Comments")
+     $('.all-comments').hide();
+    $('#'+$(this).data('id')).fadeIn(500).removeClass('d-none');  
+   }
+   else{
+    $('.all-comments').hide();
+    $(this).text("view All Comments")
+   }
+})
 function view(element){
     
     if(element.value.length<50){
@@ -88,3 +77,51 @@ function view(element){
     }
     
 }
+
+// ////////////////////////////////////////////   ////////////////////////////////////
+// add multi image
+var abc = 0;      // Declaring and defining global increment variable.
+$(document).ready(function() {
+//  To add new input file field dynamically, on click of "Add More Files" button below function will be executed.
+$('#add_more').click(function() {
+$(this).before($("<div/>", {
+id: 'filediv',
+class:'col-lg-3'
+}).fadeIn('slow').append($("<input/>", {
+name: 'file[]',
+type: 'file',
+id: 'file'
+}), $("")));
+});
+
+// Following function will executes on change event of file input to select different file.
+$('body').on('change', '#file', function() {
+if (this.files && this.files[0]) {
+abc += 1; // Incrementing global variable by 1.
+var z = abc - 1;
+var x = $(this).parent().find('#previewimg' + z).remove();
+$(this).before("<div id='abcd" + abc + "' class='abcd'><img id='previewimg" + abc + "' src=''/></div>");
+var reader = new FileReader();
+reader.onload = imageIsLoaded;
+reader.readAsDataURL(this.files[0]);
+
+$(this).hide();
+$("#abcd" + abc).append($("<div>&times;</div>" ).click(function() {
+$(this).parent().parent().remove();
+}));
+}
+});
+
+// To Preview Image
+function imageIsLoaded(e) {
+$('#previewimg' + abc).attr('src', e.target.result);
+};
+$('#upload').click(function(e) {
+var name = $(":file").val();
+if (!name) {
+alert("First Image Must Be Selected");
+e.preventDefault();
+}
+});
+});
+// end multi image

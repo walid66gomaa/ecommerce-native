@@ -43,9 +43,9 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 
 <form action="" class="login" actions="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
     <h4 class="text-center">Admin Login</h4>
-<input type="text" placeholder="username" name="user" class="form-control " autocomplete="off" >
-<input type="password" placeholder="password" name="pass" class="form-control " autocomplete="off">
-<input type="submit" name="" id="" value="login" class="btn btn-primary btn-block">
+    <input type="text" placeholder="username" name="user" class="form-control " autocomplete="off">
+    <input type="password" placeholder="password" name="pass" class="form-control " autocomplete="off">
+    <input type="submit" name="" id="" value="login" class="btn btn-primary btn-block">
 
 
 </form>

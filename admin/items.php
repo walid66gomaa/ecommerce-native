@@ -35,110 +35,124 @@
         $stmt->execute();
         $rows=$stmt->fetchAll();
         
-        ?> 
-    
-    <h1 class=" text-center text-primary"> Manage Items</h1>
-    <div class="container">
-       
-   <a href='?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> New Items </a>
-   <div class="table-responsive">
-   <table class="table table-bordered main-table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">image</th>
-      <th scope="col">Item Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Price</th>
-      <th scope="col">Category</th>
-      <th scope="col">User</th>
-      <th scope="col">Adding Date</th>
-      <th scope="col">control</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-        <?php
+        ?>
+
+<h1 class=" text-center text-primary"> Manage Items</h1>
+<div class="container">
+
+    <a href='?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> New Items </a>
+    <div class="table-responsive">
+        <table class="table table-bordered main-table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">image</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Adding Date</th>
+                    <th scope="col">control</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <?php
     foreach($rows as $row){
         
         ?>
-      <td scope="row"><?=$row['id'];?></td>
-      <td><img class="avatar" src="<?php 
+                    <td scope="row">
+                        <?=$row['id'];?>
+                    </td>
+                    <td><img class="avatar" src="<?php 
         if(empty($row['image'])){echo 'bb';}  
-       else {echo $row['image'];} ?>" 
-       alt="image">
-  
-    </td>
-      <td><?=$row['name'];?></td>
-      <td><?php if(strlen($row['description'])>20){echo substr($row['description'],0,20).'...';} else { echo $row['description']; }?></td>
-      <td><?=$row['price'];?></td>
-      <td><?=$row['catName'];?></td>
-      <td><?=$row['userName'];?></td>
-      <td><?=$row['addDate'];?></td>
-    
-      <td>
-      <a href="items.php?do=edit&item_id=<?=$row['id'];?>" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
-      <a href="items.php?do=delete&item_id=<?=$row['id'];?>" class="btn btn-danger confirm"><i class="fa fa-close"></i> Delete</a>
-      <?php
+       else {echo '../upload/item/'.$row['id'].'/'. $row['image'];} ?>"
+                            alt="image">
+
+                    </td>
+                    <td>
+                        <?=$row['name'];?>
+                    </td>
+                    <td>
+                        <?php if(strlen($row['description'])>20){echo substr($row['description'],0,20).'...';} else { echo $row['description']; }?>
+                    </td>
+                    <td>
+                        <?=$row['price'];?>
+                    </td>
+                    <td>
+                        <?=$row['catName'];?>
+                    </td>
+                    <td>
+                        <?=$row['userName'];?>
+                    </td>
+                    <td>
+                        <?=$row['addDate'];?>
+                    </td>
+
+                    <td>
+                        <a href="items.php?do=edit&item_id=<?=$row['id'];?>" class="btn btn-success"><i class="fa fa-edit"></i>
+                            Edit</a>
+                        <a href="items.php?do=delete&item_id=<?=$row['id'];?>" class="btn btn-danger confirm"><i class="fa fa-close"></i>
+                            Delete</a>
+                        <?php
       if($row['approve']==0){
         echo '<a href="items.php?do=approve&item_id='. $row['id'] .'" class="btn btn-info "><i class="fa fa-check"></i> acivate</a>'; 
       }
       ?>
-      </td>
-    </tr>
-   <?php } ?>
-  
-  </tbody>
-</table>
-</div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+            </tbody>
+        </table>
     </div>
-    <?php }
+</div>
+<?php }
 
     elseif($do=='add'){?>
 
-        <div class="container">
-            <h1 class="text-center text-primary"> Add New Item</h1>
-            <form action="?do=insert" method="post" class="form-horizontal" enctype="multipart/form-data"  >
-               
-               
-                 <!-- start category name section -->
-                <div class="form-group form-group-lg">
-                    <label for="" class="col-sm-2 control-label"> Item Name</label>
-                    <div class="col-sm-10 col-md-8">
-                        <input type="text" class="form-control" name="name"
-                        placeholder="Name Of The Item" required="required">
-                    </div>
-                </div>
+<div class="container">
+    <h1 class="text-center text-primary"> Add New Item</h1>
+    <form action="?do=insert" method="post" class="form-horizontal" enctype="multipart/form-data">
 
-                  <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2  control-label"  > Image</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="file" class="form-control"  name="image">
-                </div>
-                 </div>
-                  <!-- start descreption section -->
-                  <div class="form-group ">
-                    <label for="" class="col-sm-2 control-label">Description</label>
-                    <div class="col-sm-10 col-md-8">
 
-                       <textarea name="description" id="desc" onkeyup="auto_grow(this)"  class="form-control"
-                       placeholder="Description Of The Item"  ></textarea>
-                        
-                    </div>
-                </div>
-                 <!-- start Price section -->
-                <div class="form-group form-group-lg">
-                    <label for="" class="col-sm-2 control-label"> Price</label>
-                    <div class="col-sm-10 col-md-8">
-                        <input type="text" class="form-control" name="price" placeholder="Price Of The Item">
-                    </div>
-                </div>
-                 <!-- start Price section -->
-                 <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Country</label>
-                    <div class="col-sm-10 col-md-8">
-                    <select class="form-control" name="country" id="">
-                 <?php
+        <!-- start category name section -->
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Item Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="name" placeholder="Name Of The Item" required="required">
+            </div>
+        </div>
+
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2  control-label"> Image</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="file" class="form-control" name="image">
+            </div>
+        </div>
+        <!-- start descreption section -->
+        <div class="form-group ">
+            <label for="" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10 col-md-8">
+
+                <textarea name="description" id="desc" onkeyup="auto_grow(this)" class="form-control" placeholder="Description Of The Item"></textarea>
+
+            </div>
+        </div>
+        <!-- start Price section -->
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Price</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="price" placeholder="Price Of The Item">
+            </div>
+        </div>
+        <!-- start Price section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Country</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="country" id="">
+                    <?php
 
 	$countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica",
 					   "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", 
@@ -187,16 +201,16 @@
 
 
                   ?>
-                
-                       </select>
-                    </div>
-                </div>
-                  <!-- start Category section -->
-                  <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Category</label>
-                    <div class="col-sm-10 col-md-8">
-                        <select class="form-control" name="category" id="">
-                        <?php 
+
+                </select>
+            </div>
+        </div>
+        <!-- start Category section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Category</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="category" id="">
+                    <?php 
                         $stm=$con->prepare("SELECT id,name from categories ORDER BY name ASC");
                         $stm->execute();
                         $categories=$stm->fetchAll();
@@ -208,16 +222,16 @@
 
 
                       ?>
-                         
-                        </select>
-                    </div>
-                </div>
-                  <!-- start user_id section -->
-                  <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Member</label>
-                    <div class="col-sm-10 col-md-8">
-                        <select class="form-control" name="user" id="">
-                        <?php 
+
+                </select>
+            </div>
+        </div>
+        <!-- start user_id section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Member</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="user" id="">
+                    <?php 
                         $stm=$con->prepare("SELECT user_id,userName from users ORDER BY userName ASC");
                         $stm->execute();
                         $users=$stm->fetchAll();
@@ -229,49 +243,48 @@
 
 
                       ?>
-                         
-                        </select>
-                    </div>
-                </div>
-                 <!-- start status section -->
-                <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Status</label>
-                    <div class="col-sm-10 col-md-8">
-                        <select class="form-control" name="status" id="">
-                        
-                           
-                            <option value="1">New</option>
-                            <option value="2">Like New</option>
-                            <option value="3">Used</option>
-                            <option value="4">Very Old</option>
-                        
-                        </select>
-                    </div>
-                </div>
-               
 
-               
-
-              
-              
-                <div class="form-group form-group-lg">
-        
-                    <div class="col-sm-2 col-sm-offset-2">
-                        <input type="submit" class="btn btn-primary btn-block btn-lg"
-                            value="Add Item">
-                    </div>
-                </div>
-        
-        
-        
-            </form>
-        
-        
-        
+                </select>
+            </div>
         </div>
-        
-        
-        <?php }
+        <!-- start status section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Status</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="status" id="">
+
+
+                    <option value="1">New</option>
+                    <option value="2">Like New</option>
+                    <option value="3">Used</option>
+                    <option value="4">Very Old</option>
+
+                </select>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="form-group form-group-lg">
+
+            <div class="col-sm-2 col-sm-offset-2">
+                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Add Item">
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+
+</div>
+
+
+<?php }
       
 
 
@@ -342,11 +355,10 @@
 
                 $image='';
                 if(!empty($imageName))
-                {
+                {  
                    $image=rand(0,1000000).'_'.$imageName;
-                
-                move_uploaded_file($imageTmpName,$image);
                 }
+               
                   $stmt=$con->prepare("INSERT INTO items( name,image,description,price,countryMade,status,addDate,user_id,cat_id) 
                   VALUES (:Zname,:Zimage,:Zdesc,:Zprice,:Zcountry,:Zstatus,now(),:Zuser,:Zcat)");
                   $stmt->execute(array(
@@ -361,6 +373,17 @@
 
       
                   ));  
+                  if(!empty($imageName))
+                  {   $item_id = $con->lastInsertId();
+                      $path = '../upload/item/'.$item_id;
+                      if (!file_exists($path)) {
+                       mkdir($path, 0777, true);
+                    
+                  }
+                  $targe=$path.'/'.$image;
+                  
+                  move_uploaded_file($imageTmpName,$targe);
+                  }
                   
                   $msg='<div class="alert alert-success"> New Item inserted successfuly</div>';
       
@@ -382,44 +405,42 @@
 
         if($count>0)
         {?>
-             <div class="container">
-            <h1 class="text-center text-primary"> Add New Category</h1>
-            <form action="?do=saveedit" method="post" class="form-horizontal">
-                <input type="hidden" name="item_id" value="<?=$item_id?>">
-               
-                 <!-- start category name section -->
-                <div class="form-group form-group-lg">
-                    <label for="" class="col-sm-2 control-label"> Item Name</label>
-                    <div class="col-sm-10 col-md-8">
-                        <input type="text" class="form-control" name="name"
-                        placeholder="Name Of The Item" required="required" value="<?=$item['name']?>">
-                    </div>
-                </div>
-                 <!-- start descreption section -->
-                <div class="form-group ">
-                    <label for="" class="col-sm-2 control-label">Description</label>
-                    <div class="col-sm-10 col-md-8">
+<div class="container">
+    <h1 class="text-center text-primary"> Add New Category</h1>
+    <form action="?do=saveedit" method="post" class="form-horizontal">
+        <input type="hidden" name="item_id" value="<?=$item_id?>">
 
-                       <textarea name="description" id="desc" onkeyup="auto_grow(this)"  class="form-control"
-                       placeholder="Description Of The Item"  ><?=$item['description']?></textarea>
-                        
-                    </div>
-                </div>
-            
-                 <!-- start Price section -->
-                <div class="form-group form-group-lg">
-                    <label for="" class="col-sm-2 control-label"> Price</label>
-                    <div class="col-sm-10 col-md-8">
-                        <input type="text" class="form-control" name="price"
-                         placeholder="Price Of The Item" value="<?=$item['price']?>">
-                    </div>
-                </div>
-                 <!-- start Price section -->
-                 <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Country</label>
-                    <div class="col-sm-10 col-md-8">
-                    <select class="form-control" name="country" id="">
-                 <?php
+        <!-- start category name section -->
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Item Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="name" placeholder="Name Of The Item" required="required"
+                    value="<?=$item['name']?>">
+            </div>
+        </div>
+        <!-- start descreption section -->
+        <div class="form-group ">
+            <label for="" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10 col-md-8">
+
+                <textarea name="description" id="desc" onkeyup="auto_grow(this)" class="form-control" placeholder="Description Of The Item"><?=$item['description']?></textarea>
+
+            </div>
+        </div>
+
+        <!-- start Price section -->
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Price</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="price" placeholder="Price Of The Item" value="<?=$item['price']?>">
+            </div>
+        </div>
+        <!-- start Price section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Country</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="country" id="">
+                    <?php
 
 	$countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica",
 					   "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", 
@@ -474,17 +495,17 @@
 
 
                   ?>
-                
-                       </select>
-                    </div>
-                </div>
-                  <!-- start Category section -->
-                  <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Category</label>
-                    <div class="col-sm-10 col-md-8">
-                        <select class="form-control" name="category" id="">
-                        <?php 
-                        $categories=getDate('categories','name');
+
+                </select>
+            </div>
+        </div>
+        <!-- start Category section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Category</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="category" id="">
+                    <?php 
+                        $categories=getData('categories','name');
                         
                    foreach($categories as $Category)
                    {
@@ -499,17 +520,17 @@
 
 
                       ?>
-                         
-                        </select>
-                    </div>
-                </div>
-                  <!-- start user_id section -->
-                  <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Member</label>
-                    <div class="col-sm-10 col-md-8">
-                        <select class="form-control" name="user" id="">
-                        <?php 
-                        $users=getDate('user','userName');
+
+                </select>
+            </div>
+        </div>
+        <!-- start user_id section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Member</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="user" id="">
+                    <?php 
+                        $users=getData('user','userName');
 
                    foreach($users as $user)
                    {
@@ -526,48 +547,47 @@
 
 
                       ?>
-                         
-                        </select>
-                    </div>
-                </div>
-                 <!-- start status section -->
-                <div class="form-group form-group-md">
-                    <label for="" class="col-sm-2 control-label"> Status</label>
-                    <div class="col-sm-10 col-md-8">
-                        <select class="form-control" name="status" id="">
-                        
-                           
-                            <option value="1"<?php if($item['status']==1){ echo 'selected';}?> >New</option>
-                            <option value="2"<?php if($item['status']==2){ echo 'selected';}?>>Like New</option>
-                            <option value="3"<?php if($item['status']==3){ echo 'selected';}?>>Used</option>
-                            <option value="4"<?php if($item['status']==4){ echo 'selected';}?>>Very Old</option>
-                        
-                        </select>
-                    </div>
-                </div>
-               
 
-               
+                </select>
+            </div>
+        </div>
+        <!-- start status section -->
+        <div class="form-group form-group-md">
+            <label for="" class="col-sm-2 control-label"> Status</label>
+            <div class="col-sm-10 col-md-8">
+                <select class="form-control" name="status" id="">
 
-              
-              
-                <div class="form-group form-group-lg">
-        
-                    <div class="col-sm-2 col-sm-offset-2">
-                        <input type="submit" class="btn btn-primary btn-block btn-lg"
-                            value="Add Item">
-                    </div>
-                </div>
-        
-        
-        
-            </form>
-        
-        
-        
+
+                    <option value="1" <?php if($item['status']==1){ echo 'selected' ;}?> >New</option>
+                    <option value="2" <?php if($item['status']==2){ echo 'selected' ;}?>>Like New</option>
+                    <option value="3" <?php if($item['status']==3){ echo 'selected' ;}?>>Used</option>
+                    <option value="4" <?php if($item['status']==4){ echo 'selected' ;}?>>Very Old</option>
+
+                </select>
+            </div>
         </div>
 
-        <?php }
+
+
+
+
+
+        <div class="form-group form-group-lg">
+
+            <div class="col-sm-2 col-sm-offset-2">
+                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Add Item">
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+
+</div>
+
+<?php }
             
     
     
@@ -650,6 +670,12 @@
         $stmt=$con->prepare("DELETE FROM items WHERE id=:zid");
         $stmt->bindParam('zid',$item_id);
         $stmt->execute();
+
+        //    delelet in server hard
+        $path = '../upload/item/'.$item_id;
+        if (file_exists($path)) {
+          rrmdir($path);
+     }
         $msg= "<div class='alert alert-success'>".$row['name']." Deleted successfuly"."</div>";
         
         

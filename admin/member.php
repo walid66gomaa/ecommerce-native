@@ -35,118 +35,130 @@
         $stmt->execute();
         $rows=$stmt->fetchAll();
         
-        ?> 
-    
-    <h1 class=" text-center text-primary"> Manage Member</h1>
-    <div class="container">
-       
-   <a href='?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> New Member </a>
-   <div class="table-responsive">
-   <table class="table table-bordered main-table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">image</th>
-      <th scope="col">User Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Full Name</th>
-      <th scope="col">Regester Date</th>
-      <th scope="col">control</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-        <?php
+        ?>
+
+<h1 class=" text-center text-primary"> Manage Member</h1>
+<div class="container">
+
+    <a href='?do=add' class="btn btn-primary"><i class="fa fa-plus"></i> New Member </a>
+    <div class="table-responsive">
+        <table class="table table-bordered main-table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">image</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Regester Date</th>
+                    <th scope="col">control</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <?php
     foreach($rows as $row){
         
         ?>
-      <td scope="row"><?=$row['user_id'];?></td>
-      <td><img class="avatar" src="<?php 
+                    <td scope="row">
+                        <?=$row['user_id'];?>
+                    </td>
+                    <td><img class="avatar" src="<?php 
         if(empty($row['avatar'])){echo 'bb';}  
-       else {echo 'upload/user/avatar/'.$row['avatar'];} ?>" 
-       alt="image">
-  
-    </td>
-      <td><?=$row['userName'];?></td>
-      <td><?=$row['email'];?></td>
-      <td><?=$row['fullName'];?></td>
-      <td><?=$row['date'];?></td>
-      
-      <td>
-      <a href="member.php?do=edit&user_id=<?=$row['user_id'];?>" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
-      <a href="member.php?do=delete&user_id=<?=$row['user_id'];?>" class="btn btn-danger confirm"><i class="fa fa-close"></i> Delete</a>
-      <?php
+       else {echo '../upload/user/avatar/'.$row['user_id'].'/'.$row['avatar'];} ?>"
+                            alt="image">
+
+                    </td>
+                    <td>
+                        <?=$row['userName'];?>
+                    </td>
+                    <td>
+                        <?=$row['email'];?>
+                    </td>
+                    <td>
+                        <?=$row['fullName'];?>
+                    </td>
+                    <td>
+                        <?=$row['date'];?>
+                    </td>
+
+                    <td>
+                        <a href="member.php?do=edit&user_id=<?=$row['user_id'];?>" class="btn btn-success"><i class="fa fa-edit"></i>
+                            Edit</a>
+                        <a href="member.php?do=delete&user_id=<?=$row['user_id'];?>" class="btn btn-danger confirm"><i
+                                class="fa fa-close"></i> Delete</a>
+                        <?php
       if($row['regStatus']==0){
         echo '<a href="member.php?do=activate&user_id='. $row['user_id'] .'" class="btn btn-info "><i class="fa fa-check"></i> acivate</a>'; 
       }
       ?>
-      </td>
-    </tr>
-   <?php } ?>
-  
-  </tbody>
-</table>
-</div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+            </tbody>
+        </table>
     </div>
-    <?php }
+</div>
+<?php }
 
     elseif($do=='add'){?>
 
-     <div class="container">
-        <h1 class=" text-center text-primary"> Add New Member</h1>
-        <form action="?do=saveuser" method="post" enctype="multipart/form-data" class="form-horizontal" >
-  
+<div class="container">
+    <h1 class=" text-center text-primary"> Add New Member</h1>
+    <form action="?do=saveuser" method="post" enctype="multipart/form-data" class="form-horizontal">
+
         <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2  control-label"  > User Name</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control"  name="userName"  requiredl="required">
-                </div>
+            <label for="" class="col-sm-2  control-label"> User Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="userName" requiredl="required">
             </div>
+        </div>
 
-              <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2  control-label"  > Image</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="file" class="form-control"  name="avatar"  requiredl="required">
-                </div>
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2  control-label"> Image</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="file" class="form-control" name="avatar" requiredl="required">
             </div>
+        </div>
 
-            <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2 control-label"  > Full Name</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control"  name="fullName"  requiredw>
-                </div>
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Full Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="fullName" requiredw>
             </div>
-            <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2 control-label"> Email</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="email" class="form-control" name="email"   requiredw>
-                </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Email</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="email" class="form-control" name="email" requiredw>
             </div>
-            <div class="form-group form-group-lg">
-                
-                <label for="" class="col-sm-2 control-label"> Password</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="password" class="form-control password" name="password"  requiredw>
-                    <i class="show-pass fa fa-eye-slash fa-2x"></i>
-                </div>
+        </div>
+        <div class="form-group form-group-lg">
+
+            <label for="" class="col-sm-2 control-label"> Password</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="password" class="form-control password" name="password" requiredw>
+                <i class="show-pass fa fa-eye-slash fa-2x"></i>
             </div>
-            <div class="form-group form-group-lg ">
-               
-                <div class="col-sm-2 col-sm-offset-2">
-                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Add Member">
-                </div>
+        </div>
+        <div class="form-group form-group-lg ">
+
+            <div class="col-sm-2 col-sm-offset-2">
+                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Add Member">
             </div>
+        </div>
 
 
 
-        </form>
+    </form>
 
 
 
-    </div>
+</div>
 
 
-   <?php }
+<?php }
 
 elseif($do=='saveuser')
 {
@@ -240,16 +252,8 @@ elseif($do=='saveuser')
             
             $avatar='';
             if(!empty($avatarName))
-            {
+            { 
                $avatar=rand(0,1000000).'_'.$avatarName;
-                    
-               $path = 'upload/user/avatar';
-               if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-            $targe=$path.'/'.$avatar;
-               
-            move_uploaded_file($avatarTmpName,$targe);
             }
            
 			$stmt=$con->prepare("INSERT INTO users( userName,fullName,avatar,email,password,date,regstatus) 
@@ -262,10 +266,26 @@ elseif($do=='saveuser')
 				'Zpass'=>$hashpass
 
 
-			));  
+            ));  
+
+            if(!empty($avatarName))
+            {  $user_id = $con->lastInsertId();
+                
+
+              
+                    
+               $path = '../upload/user/avatar/'.$user_id;
+               if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $targe=$path.'/'.$avatar;
+               
+            move_uploaded_file($avatarTmpName,$targe);
+            }
+           
 			$msg='<div class="alert alert-success"> Usere inserted successfuly</div>';
 
-			//redirect($msg,'back',1);
+			redirect($msg,'back',1);
 		}
 
 
@@ -284,58 +304,61 @@ elseif($do=='saveuser')
 
     if($count>0)
     {?>
-     <div class="container">
-        <h1 class=" text-center text-primary"> Edit Member</h1>
-        <form action="?do=saveedit" method="post" class="form-horizontal" >
-   <input type="hidden" value="<?=$user_id ?>" name="user_id">
-   <input type="hidden" value="<?=$row['password'] ?>" name="oldPass">
-            <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2  control-label"  > User Name</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control"  name="userName" value="<?=$row['userName']?>" autocomplete="off" required="required">
-                </div>
+<div class="container">
+    <h1 class=" text-center text-primary"> Edit Member</h1>
+    <form action="?do=saveedit" method="post" class="form-horizontal">
+        <input type="hidden" value="<?=$user_id ?>" name="user_id">
+        <input type="hidden" value="<?=$row['password'] ?>" name="oldPass">
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2  control-label"> User Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="userName" value="<?=$row['userName']?>" autocomplete="off"
+                    required="required">
             </div>
-            <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2 control-label"  > Full Name</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control" value="<?=$row['fullName']?>" name="fullName" autocomplete="off" required>
-                </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Full Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" value="<?=$row['fullName']?>" name="fullName" autocomplete="off"
+                    required>
             </div>
-            <div class="form-group form-group-lg">
-                <label for="" class="col-sm-2 control-label"> Email</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="email" class="form-control" name="email" value="<?=$row['email']?>" autocomplete="off" required>
-                </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <label for="" class="col-sm-2 control-label"> Email</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="email" class="form-control" name="email" value="<?=$row['email']?>" autocomplete="off"
+                    required>
             </div>
-            <div class="form-group form-group-lg">
-                
-                <label for="" class="col-sm-2 control-label"> Password</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="password" class="form-control password" name="password">
-                    <i class="show-pass fa fa-eye-slash fa-2x"></i>
-                </div>
+        </div>
+        <div class="form-group form-group-lg">
+
+            <label for="" class="col-sm-2 control-label"> Password</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="password" class="form-control password" name="password">
+                <i class="show-pass fa fa-eye-slash fa-2x"></i>
             </div>
-            <div class="form-group form-group-lg ">
-               
-                <div class="col-sm-2 col-sm-offset-2">
-                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save">
-                </div>
+        </div>
+        <div class="form-group form-group-lg ">
+
+            <div class="col-sm-2 col-sm-offset-2">
+                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save">
             </div>
+        </div>
 
 
 
-        </form>
+    </form>
 
 
 
-    </div>
+</div>
 
 
 
 
 
-       
-   <?php }
+
+<?php }
     else
     {
         echo "there is no User with this id";
@@ -397,7 +420,7 @@ elseif($do=='saveuser')
               echo '<div class="alert alert-danger">'. $error."</div>";
           }
 
-          redirect('','back',5);
+          redirect('','back',4);
         
 
       }
@@ -407,7 +430,7 @@ elseif($do=='saveuser')
 
         $msg='<div class="alert alert-success"> Usere Updeted successfuly</div>';
 
-redirect($msg,'back',4);
+redirect($msg,'back',1);
           }
         
         
@@ -415,7 +438,7 @@ redirect($msg,'back',4);
     else{
 
     
-        redirect('sorry cant access this','',4);
+        redirect('sorry cant access this','',3);
     }
 
 
@@ -431,6 +454,12 @@ redirect($msg,'back',4);
         $stmt=$con->prepare("DELETE FROM users WHERE user_id=:zid");
         $stmt->bindParam('zid',$user_id);
         $stmt->execute();
+
+    //    delelet in server hard
+        $path = '../upload/user/avatar/'.$user_id;
+        if (file_exists($path)) {
+          rrmdir($path);
+     }
         
         redirect($row['fullName']." deleted successfuly",'back',1);
 

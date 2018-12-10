@@ -15,46 +15,49 @@ header('location:index.php');
 
 
 
-  <div class="container home-stats text-center">
-     <h1><i class="fa fa-dashboard" aria-hidden="true"></i> DashBoard</h1>  
-     <div class="row">
-       <div class="col-md-3">
-          <div class="stat st-members">total Members 
-          <span><a href="member.php"><?=countColumn('user_id','users')?></a></span>
-          </div>
-          
-       </div>
-       <div class="col-md-3">
-          <div class="stat st-pending ">pending Members
-          <span><a href="member.php?do=manage&pending=0"><?=countColumn('regStatus','users','0')?></a></span>
-          </div>
-         
-       </div>
-       <div class="col-md-3">
-          <div class="stat st-items">Total Items
-          <span><a href="items.php?do=manage"><?=countColumn('id','items')?></a></span>
-          </div>
-          
-       </div>
-       <div class="col-md-3">
-          <div class="stat st-comments">Total Comments
-           <span>3456</span>
-          </div>
-         
-       </div>
-     </div>
-  </div>
-
-  <div class="container lates">
+<div class="container home-stats text-center">
+    <h1><i class="fa fa-dashboard" aria-hidden="true"></i> DashBoard</h1>
     <div class="row">
-      <div class="col-md-5">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-<i class="fa fa-user" aria-hidden="true"></i> Latest 5 Register Users
+        <div class="col-md-3">
+            <div class="stat st-members">total Members
+                <span><a href="member.php">
+                        <?=countColumn('user_id','users')?></a></span>
             </div>
-            <div class="panel-body">
-            <ul class="list-unstyled list-group">
-              <?php 
+
+        </div>
+        <div class="col-md-3">
+            <div class="stat st-pending ">pending Members
+                <span><a href="member.php?do=manage&pending=0">
+                        <?=countColumn('regStatus','users','0')?></a></span>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="stat st-items">Total Items
+                <span><a href="items.php?do=manage">
+                        <?=countColumn('id','items')?></a></span>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="stat st-comments">Total Comments
+                <span>3456</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container lates">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user" aria-hidden="true"></i> Latest 5 Register Users
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled list-group">
+                        <?php 
              $latestUsers = getLatest('users','user_id',5);
              foreach( $latestUsers as $user)
              {
@@ -71,19 +74,19 @@ header('location:index.php');
                 echo "</li>";
              }
               ?>
-             </ul> 
-            </div>
+                    </ul>
+                </div>
 
-          </div>
-      </div> 
-      <div class="col-md-5">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-<i class="fa fa-tag" aria-hidden="true"></i> Latest Item Added
             </div>
-            <div class="panel-body">
-            <ul class="list-unstyled list-group">
-              <?php 
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-tag" aria-hidden="true"></i> Latest Item Added
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled list-group">
+                        <?php 
              $latestItems = getLatest('items','id',5);
              foreach( $latestItems as $item)
              {
@@ -100,18 +103,18 @@ header('location:index.php');
                 echo "</li>";
              }
               ?>
-             </ul> 
-            </div>
+                    </ul>
+                </div>
 
-          </div>
-      </div> 
+            </div>
+        </div>
 
     </div>
-  </div>
+</div>
 
 
 
 
 
-  <?php
-   include $tmp."footer.php"; 
+<?php
+   include $tmp."footer.php";

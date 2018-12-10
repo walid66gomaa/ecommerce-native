@@ -16,10 +16,3 @@ catch(PDOEXCEPTION $e)
 {
 echo 'failed to connect to database'.$e->getmessage();
 }
-
-
-
-
-
-
-

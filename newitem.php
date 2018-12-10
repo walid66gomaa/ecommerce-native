@@ -1,63 +1,65 @@
-
 <?php
 
 session_start();
 if( ! isset($_SESSION['user']))
 {
-    header('location:index.php');
+    header('location:login.php');
 }
-
+$pageTitle='new item';
 include "init.php";
-
-
 ?>
 
-  <!-- start information sections  -->
-    
 
-    <div class="container">
-        <div class='information block' >
-        <div class="panel-group">
-            <div class="panel panel-success">
-                <div class="panel-heading text-center">Add New item</div>
-                <div class="panel-body ">
-                       
-                <div class="col-md-8">
-           
-            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="form-horizontal">
-               
-               
-                 <!-- start category name section -->
-                <div class="form-group form-group-lg">
+
+<!-- start information sections  -->
+<?php 
+if($_SERVER['REQUEST_METHOD']=='GET')
+{
+?>
+<div class="container">
+    <div class='row'>
+
+
+        <div class="col-lg-12">
+            <div class="panel-heading text-center">Add New item</div>
+        </div>
+
+        <div class="col-md-12">
+
+            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
+
+
+                <!-- start category name section -->
+                <div class="form-group form-group-lg row">
                     <label for="" class="col-sm-2 control-label"> Item Name</label>
                     <div class="col-sm-10 col-md-8">
-                        <input type="text" class="form-control live-name" name="name"
-                        placeholder="Name Of The Item" required="required" onkeyup="view(this)" >
+                        <input type="text" class="form-control live-name" name="name" placeholder="Name Of The Item"
+                            required="required" onkeyup="view(this)">
                     </div>
                 </div>
-                  <!-- start descreption section -->
-                  <div class="form-group ">
+                <!-- start descreption section -->
+                <div class="form-group row">
                     <label for="" class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10 col-md-8">
 
-                       <textarea name="description" id="desc" onkeyup="auto_grow(this);view(this); "  class="form-control"
-                       placeholder="Description Of The Item"  ></textarea>
-                        
+                        <textarea name="description" id="desc" onkeyup="auto_grow(this);view(this); " class="form-control"
+                            placeholder="Description Of The Item"></textarea>
+
                     </div>
                 </div>
-                 <!-- start Price section -->
-                <div class="form-group form-group-lg">
-                    <label for="" class="col-sm-2 control-label" > Price</label>
+                <!-- start Price section -->
+                <div class="form-group form-group-lg row">
+                    <label for="" class="col-sm-2 control-label"> Price</label>
                     <div class="col-sm-10 col-md-8">
                         <input type="text" class="form-control" onkeyup="view(this)" name="price" placeholder="Price Of The Item">
                     </div>
                 </div>
-                 <!-- start Price section -->
-                 <div class="form-group form-group-md">
+                <!-- start Price section -->
+                <div class="form-group form-group-md row">
                     <label for="" class="col-sm-2 control-label"> Country</label>
                     <div class="col-sm-10 col-md-8">
-                    <select class="form-control" name="country" id="">
-                 <?php
+                        <select class="form-control" name="country" id="">
+                            <?php
 
 	$countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica",
 					   "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", 
@@ -106,16 +108,16 @@ include "init.php";
 
 
                   ?>
-                
-                       </select>
+
+                        </select>
                     </div>
                 </div>
-                  <!-- start Category section -->
-                  <div class="form-group form-group-md">
+                <!-- start Category section -->
+                <div class="form-group form-group-md row">
                     <label for="" class="col-sm-2 control-label"> Category</label>
                     <div class="col-sm-10 col-md-8">
                         <select class="form-control" name="category" id="">
-                        <?php 
+                            <?php 
                         $stm=$con->prepare("SELECT id,name from categories ORDER BY name ASC");
                         $stm->execute();
                         $categories=$stm->fetchAll();
@@ -127,77 +129,80 @@ include "init.php";
 
 
                       ?>
-                         
+
                         </select>
                     </div>
                 </div>
-                
-                 <!-- start status section -->
-                <div class="form-group form-group-md">
+
+                <!-- start status section -->
+                <div class="form-group form-group-md  row">
                     <label for="" class="col-sm-2 control-label"> Status</label>
-                    <div class="col-sm-10 col-md-9">
+                    <div class="col-sm-10 col-md-8">
                         <select class="form-control" name="status" id="">
-                        
-                           
+
+
                             <option value="1">New</option>
                             <option value="2">Like New</option>
                             <option value="3">Used</option>
                             <option value="4">Very Old</option>
-                        
+
                         </select>
                     </div>
                 </div>
-               
 
-               
+                <div class="form-group form-group-md row">
+                    <label for="" class="col-sm-2 control-label"> add images</label>
+                    <div class="col-sm-10 col-md-8 row">
 
-              
-              
-                <div class="form-group form-group-lg">
-        
-                    <div class="col-sm-2 col-sm-offset-2">
-                        <input type="submit" class="btn btn-primary btn-block btn-lg"
-                            value="Add Item">
+
+                        <div class="lead col-sm-12">
+                            First image will be main image
+                        </div>
+                        <div id="filediv" class="col-lg-3">
+
+                            <input name="file[]" type="file" id="file" />
+                        </div>
+                        <div class=" col-md-12" id="add_more">
+                            <input type="button" class="btn btn-info upload" value="Add More Image" />
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <div class="form-group form-group-sm row">
+
+                    <div class="col-sm-2 offset-2">
+                        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Add">
                     </div>
                 </div>
-        
-        
-        
+
+
+
             </form>
-        
-        
-        
-        </div>
-  <!-- start show  inserted item -->
-                      <div class="col-xs-12 col-sm-4 card grid-item">
-      <div class="thumbnail live-preview" >
-        <img src="https://weddu.files.wordpress.com/2010/07/dancing-disco-lights-copy1.jpeg" class="">
-        <div class="caption">
-          <h3 id="thumbnail-label" class="name2"></h3>
-          <div> description :
-              <p class="description2 lead"></p>
-          </div> 
-          <p >Price: <span class='price2'></span></p>
-        </div>
-        <div class="caption card-footer">
-          <ul class="list-inline">
-            <li><i class="fa fa-user"></i></li>
-            <li>14</li>
-          </ul>
-        </div>
-      </div><!-- thumbnail -->
-    </div><!-- card -->
-                     </div>
 
-                </div>
-            </div>
+
 
         </div>
+
+        <!-- start show  inserted item -->
+
     </div>
 
-
-     
 </div>
+
+<?php }?>
+
+
+
+
+
+
+
 
 
 
@@ -219,10 +224,58 @@ include "init.php";
          $status        = filter_var($_POST['status'],FILTER_SANITIZE_STRING);
          $cat_id        = filter_var($_POST['category'],FILTER_SANITIZE_STRING);
          $user_id        = $sessionUserId;
+    
+            // image  start
+            $formEditErorr=array();
+         $imageAllawedExtention=array("jpeg","jpg","gif","png");
+          $allImage=array();
        
+     
+             // Declaring Path for uploaded images.
+           $imageAllawedExtention=array("jpeg","jpg","gif","png");
+            for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
+
+                $imageName=$_FILES['file']['name'][$i]; 
+                $imagetype=$_FILES['file']['type'][$i];
+                $imagesize=$_FILES['file']['size'][$i];
+                $imageTmpName=$_FILES['file']['tmp_name'][$i];
+
+                if(!empty($imageName)){
+                   
+                     $name_parts=explode('.',$imageName);
+                     $imageExtention=strtolower( end ( $name_parts ) );
+
+                   if (in_array($imageExtention,$imageAllawedExtention)
+                       && $imagesize<(4*1024*1024) && $imagesize>(100)) 
+                       {
+                           $allImage['name'][]=$imageName;
+                           $allImage['tmp_name'][]=$imageTmpName;
+
+                    }
+                    else
+                    {
+                        $formEditErorr[]=' this image Extention Is Not Allawed or its size'; 
+
+                      }
+           
+         
+         
+                   }
+                
+            }
        
- 
-         $formEditErorr=array();
+     
+// end check image part
+
+
+
+
+
+
+
+
+
+        
  
          if(empty($name))
          {
@@ -247,28 +300,69 @@ include "init.php";
                  echo '<div class="alert alert-danger">'. $error."</div>";
              }
  
-             redirect('','back',4);
+            redirect('','back',4);
  
  
          }
          else{
-             $stmt=$con->prepare("INSERT INTO items( name,description,price,countryMade,status,addDate,user_id,cat_id) 
-             VALUES (:Zname,:Zdesc,:Zprice,:Zcountry,:Zstatus,now(),:Zuser,:Zcat)");
-             $stmt->execute(array(
-                 'Zname'=> $name ,
-                 'Zdesc'=>$desc,
-                 'Zprice'=>$price,
-                 'Zcountry'=>$country,
-                'Zstatus'=>$status,
-                'Zuser'=>$user_id,
-                'Zcat'=>$cat_id
+            $image='';
+            if(!empty($allImage['name']))
+            {  
+               $image=rand(0,1000000).'_'.$allImage['name'][0];
+            }
+           
+              $stmt=$con->prepare("INSERT INTO items( name,image,description,price,countryMade,status,addDate,user_id,cat_id) 
+              VALUES (:Zname,:Zimage,:Zdesc,:Zprice,:Zcountry,:Zstatus,now(),:Zuser,:Zcat)");
+              $stmt->execute(array(
+                  'Zname'=> $name ,
+                  'Zimage'=>$image,
+                  'Zdesc'=>$desc,
+                  'Zprice'=>$price,
+                  'Zcountry'=>$country,
+                 'Zstatus'=>$status,
+                 'Zuser'=>$user_id,
+                 'Zcat'=>$cat_id
 
- 
-             ));  
-             
+  
+              ));  
+             $item_id = $con->lastInsertId();
+              if(!empty($allImage['name']))
+              {   
+
+                  $path = 'upload/item/'.$item_id;
+                  if (!file_exists($path)) {
+                   mkdir($path, 0777, true);
+                
+              }
+
+              $targe=$path.'/'.$image; //save first image main image 
+              
+              move_uploaded_file($allImage['tmp_name'][0],$targe); //mave first image main image
+
+
+              for($i=1;$i<sizeof($allImage['name']);$i++)
+                    {
+                        $image=rand(0,1000000).'_'.$allImage['name'][$i]; 
+                        $targe=$path.'/'.$image; 
+                        move_uploaded_file($allImage['tmp_name'][$i],$targe); 
+                        $stmt=$con->prepare("INSERT INTO itemimages ( item_id,image) VALUES (:Zitem,:Zimage)");
+                        $stmt->execute(array(
+                            'Zitem'=> $item_id ,
+                            'Zimage'=>$image,
+                           
+          
+            
+                        ));
+              
+              
+                    }
+
+              }
+
+
              $msg='<div class="alert alert-success"> New Item inserted successfuly</div>';
  
-             redirect($msg,'back',4);
+             redirect($msg,'oneitem.php?item_id='.$item_id,2);
          }
  
  
@@ -276,5 +370,4 @@ include "init.php";
    }
 include $tmp."footer.php" ; 
 
-?>
-
+?>y
