@@ -17,88 +17,88 @@ include "init.php";
     
         if($count>0)
         {?>
-    <div class="container">
+<div class="container">
 
 
-        <h1 class=" text-center "> Edit profile</h1>
-  <div class="change-image">
-<form action="?do=saveImage"  method="post" enctype="multipart/form-data">
-<div class="form-group form-group-md row">
-                    <label for="" class="col-sm-2 control-label"> </label>
-                    <div class="col-sm-10 col-md-8 row">
-                        <div id="filediv" class="col-lg-3">
+    <h1 class=" text-center "> Edit profile</h1>
+    <div class="change-image">
+        <form action="?do=saveImage" method="post" enctype="multipart/form-data">
+            <div class="form-group form-group-md row">
+                <label for="" class="col-sm-2 control-label"> </label>
+                <div class="col-sm-10 col-md-8 row">
+                    <div id="filediv" class="col-lg-3">
 
-                            <input name="avatar" type="file" id="file" required/>
-                        </div>
-                      
-                    </div>
-                    <div class="col-sm-10 col-md-8 row">
-                        <div id="filediv" class="col-lg-3">
-
-                           <input type="submit" name="" id="" class="btn btn-primary"  value="change image">
-                
-                        </div>
-                      
+                        <input name="avatar" type="file" id="file" required />
                     </div>
 
-                  </div>
+                </div>
+                <div class="col-sm-10 col-md-8 row">
+                    <div id="filediv" class="col-lg-3">
 
-</form>
-</div>
-        <form action="?do=saveedit" method="post" class="form-horizontal">
-            
-            
-            <div class="form-group form-group-lg row">
-                <label for="" class="col-sm-2  control-label"> User Name</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control" name="userName" value="<?=$row['userName']?>" autocomplete="off"
-                        required="required">
+                        <input type="submit" name="" id="" class="btn btn-primary" value="change image">
+
+                    </div>
+
                 </div>
+
             </div>
-            <div class="form-group form-group-lg row">
-                <label for="" class="col-sm-2 control-label"> Full Name</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="text" class="form-control" value="<?=$row['fullName']?>" name="fullName" autocomplete="off"
-                        required>
-                </div>
-            </div>
-            <div class="form-group form-group-lg row">
-                <label for="" class="col-sm-2 control-label"> Email</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="email" class="form-control" name="email" value="<?=$row['email']?>" autocomplete="off"
-                        required>
-                </div>
-            </div>
-            <div class="form-group form-group-lg row">
-    
-                <label for="" class="col-sm-2 control-label"> Password</label>
-                <div class="col-sm-10 col-md-8">
-                    <input type="password" class="form-control password" name="password">
-                    <i class="show-pass fa fa-eye-slash fa-2x"></i>
-                </div>
-            </div>
-            <div class="form-group form-group-lg row ">
-    
-                <div class="col-sm-2 col-sm-offset-2">
-                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save">
-                </div>
-            </div>
-    
-    
-    
+
         </form>
-    
-    
-    
     </div>
-    
-    
-    
-    
-    
-        <?php }?>
-  
-    <?php   
+    <form action="?do=saveedit" method="post" class="form-horizontal">
+
+
+        <div class="form-group form-group-lg row">
+            <label for="" class="col-sm-2  control-label"> User Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" name="userName" value="<?=$row['userName']?>" autocomplete="off"
+                    required="required">
+            </div>
+        </div>
+        <div class="form-group form-group-lg row">
+            <label for="" class="col-sm-2 control-label"> Full Name</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="text" class="form-control" value="<?=$row['fullName']?>" name="fullName" autocomplete="off"
+                    required>
+            </div>
+        </div>
+        <div class="form-group form-group-lg row">
+            <label for="" class="col-sm-2 control-label"> Email</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="email" class="form-control" name="email" value="<?=$row['email']?>" autocomplete="off"
+                    required>
+            </div>
+        </div>
+        <div class="form-group form-group-lg row">
+
+            <label for="" class="col-sm-2 control-label"> Password</label>
+            <div class="col-sm-10 col-md-8">
+                <input type="password" class="form-control password" name="password">
+                <i class="show-pass fa fa-eye-slash fa-2x"></i>
+            </div>
+        </div>
+        <div class="form-group form-group-lg row ">
+
+            <div class="col-sm-2 col-sm-offset-2">
+                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Save">
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+
+</div>
+
+
+
+
+
+<?php }?>
+
+<?php   
      $do='';
      if(isset($_GET['do']))
      {
@@ -222,7 +222,7 @@ elseif($do=='saveImage'){
             
        $path = 'upload/user/avatar/'.$user_id;
        if (file_exists($path)) {
-        rrmdir($path);
+       
         
     }
     mkdir($path, 0777, true);
@@ -232,8 +232,8 @@ elseif($do=='saveImage'){
     } 
     }
 
-    $stmt=$con->prepare("UPDATE users SET avatar=? ");
-    $stmt->execute(array($avatar));  
+    $stmt=$con->prepare("UPDATE users SET avatar=? Where user_id=? ");
+    $stmt->execute(array($avatar,$sessionUserId));  
 
     $msg='<div class="alert alert-success"> Usere Updeted successfuly</div>';
 
@@ -245,11 +245,11 @@ redirect($msg,'back',0);
 }
 }
 ?>
-        
-       
-    
-       
-    
+
+
+
+
+
 
 
 
@@ -262,4 +262,3 @@ redirect($msg,'back',0);
 include $tmp."footer.php" ; 
 
 ?>
-

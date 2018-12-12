@@ -8,7 +8,7 @@
 if(isset($_SESSION['user']))
 
 {?>
-    <div class="col-lg-12 cart"><a href="purchases.php"><img src="themes/images/ico-cart.png" alt="cart">
+    <div class="col-lg-12 cart"><a href="purchases.php"><img src="layout/images/ico-cart.png" alt="cart">
             <?=$cartsSum?> Items in your cart </a></div>
     <?php }?>
 
@@ -123,7 +123,7 @@ if(isset($_SESSION['user']))
     <!-- // end item 2 -->
     <br>
     <div class="card col-lg-12">
-        <img class="card-img-top img-thumbnail" src="themes/images/payment_methods.png" title="Bootshop Payment Methods"
+        <img class="card-img-top img-thumbnail" src="layout/images/payment_methods.png" title="Bootshop Payment Methods"
             alt="Payments Methods">
         <div class="card-body">
             <p class="card-text">

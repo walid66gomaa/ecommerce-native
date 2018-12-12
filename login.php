@@ -1,5 +1,4 @@
- 
- <?php
+<?php
 
 session_start();
 if(isset($_SESSION['user']))
@@ -26,38 +25,40 @@ include "init.php";
 
   ?>
 <div class='sign-in-signup'>
-<section class="sign-in ">
+    <section class="sign-in ">
 
- 
-    <div class="container ">
-        <div class="row">
-                        <div class="signin-image col-md-6">
-                            <figure><img src="layout/images/signin-image.jpg" alt="sing up image"></figure>
-                            <a href="#" class="signup-image-link" data-class='signup'>Create an account</a>
-                        </div>
-            <div class="signin-content col-md-6">
-            <div class="signin-form  ">
-            <h2 class="form-title text-center">Sign in</h2>
-        <form action="" class="login" actions="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-           
-                 <div class="form-group col-sm-10">
+
+        <div class="container ">
+            <div class="row">
+                <div class="signin-image col-md-6">
+                    <figure><img src="layout/images/signin-image.jpg" alt="sing up image"></figure>
+                    <a href="#" class="signup-image-link" data-class='signup'>Create an account</a>
+                </div>
+                <div class="signin-content col-md-6">
+                    <div class="signin-form  ">
+                        <h2 class="form-title text-center">Sign in</h2>
+                        <form action="" class="login" actions="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+
+                            <div class="form-group col-sm-10">
                                 <label for="your_name"><i class="fa fa-user" aria-hidden="true"></i></label>
-                                <input type="text" name="user" id="your_name" placeholder="Your Name"/>
+                                <input type="text" name="user" id="your_name" placeholder="Your Name" />
                             </div>
                             <div class="form-group col-sm-10">
                                 <label for="your_pass"><i class="fa fa-lock" aria-hidden="true"></i></label>
-                                <input type="password" name="pass" id="your_pass" placeholder="Password"/>
+                                <input type="password" name="pass" id="your_pass" placeholder="Password" />
                             </div>
                             <div class="form-group text-center col-sm-3">
-                               
+
                                 <input type="submit" name="login" id="signin" value="login" class="form-submit btn btn-primary">
                             </div>
 
 
-        </form>
-      </div></div></div>
-    </div>
-</section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -66,53 +67,55 @@ include "init.php";
 
 
 
-<section class="signup d-none" >
-    <div class="container ">
-        <div class="row">
-    <div class="signup-image col-md-6">
-                        <figure><img src="layout/images/signup-image.jpg" alt="sing up image"></figure>
-                        <a href="" class="signup-image-link" data-class='sign-in' >I am already member</a>
-    </div>
-        <div class="signin-content col-md-6">
-        <div class="signup-form">
+    <section class="signup d-none">
+        <div class="container ">
+            <div class="row">
+                <div class="signup-image col-md-6">
+                    <figure><img src="layout/images/signup-image.jpg" alt="sing up image"></figure>
+                    <a href="" class="signup-image-link" data-class='sign-in'>I am already member</a>
+                </div>
+                <div class="signin-content col-md-6">
+                    <div class="signup-form">
                         <h2 class="form-title text-center">Sign up</h2>
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class=" sign-up hidden">
-            
-                <div class="form-group col-sm-10">
-                    <label for="name"><i class="fa fa-user" aria-hidden="true"></i></label>
-                    <input type="text" name="userName" id="name" placeholder="User Name" required="required"/>
-                </div>
-                <div class="form-group col-sm-10">
-                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                    <input type="text" name="fullName" id="name" placeholder="Full Name" required="required"/>
-                </div>
-        
-        
+                        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class=" sign-up hidden">
 
-             <div class="form-group col-sm-10">
-                                <label for="email"><i class="fa fa-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email" required="required"/>
-                </div>
-
-                 <div class="form-group col-sm-10">
-                                <label for="pass"><i class="show-pass fa fa-eye-slash " aria-hidden="true"></i></label>
-                                <input type="password" name="password" id="pass" class="password" placeholder="Password" required="required"/>
-                                
+                            <div class="form-group col-sm-10">
+                                <label for="name"><i class="fa fa-user" aria-hidden="true"></i></label>
+                                <input type="text" name="userName" id="name" placeholder="User Name" required="required" />
+                            </div>
+                            <div class="form-group col-sm-10">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="fullName" id="name" placeholder="Full Name" required="required" />
                             </div>
 
-                 <div class="form-group text-center col-sm-4">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+
+
+                            <div class="form-group col-sm-10">
+                                <label for="email"><i class="fa fa-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Your Email" required="required" />
+                            </div>
+
+                            <div class="form-group col-sm-10">
+                                <label for="pass"><i class="show-pass fa fa-eye-slash " aria-hidden="true"></i></label>
+                                <input type="password" name="password" id="pass" class="password" placeholder="Password"
+                                    required="required" />
+
+                            </div>
+
+                            <div class="form-group text-center col-sm-4">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            </div>
+
+
+
+
+
+                        </form>
+                    </div>
+
                 </div>
-            
-         
-
-
-
-        </form> </div>
-
-</div>
-</div>
-    </div>
+            </div>
+        </div>
     </section>
 </div>
 
@@ -263,11 +266,12 @@ include "init.php";
      include $tmp."footer.php" ; 
 
     ?>
-    <head>
-     <style>
-     body {
- 
-  background: #f8f8f8;
-  }
-     </style>
- </head>
+
+<head>
+    <style>
+        body {
+
+            background: #f8f8f8;
+        }
+    </style>
+</head>

@@ -5,7 +5,7 @@ $pageTitle=$_GET['catName'];
 include "init.php";
 
 
-$items=getItems('items.cat_id',$_GET['cat_id'],1);
+$items=getItems('items.cat_id',$_GET['cat_id']);
  
 ?>
 <div id="mainBody">

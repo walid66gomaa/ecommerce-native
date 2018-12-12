@@ -52,7 +52,10 @@ $stmt->execute(array( ++$oneItem[0]['viewNum'],$item_id ));
 
                 <div class="row">
                     <div id="gallery" class="col-lg-5">
-                        <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
+                        <a href="<?php 
+                      if(empty($oneItem[0]['image'])){echo 'upload/item/default.png';}  
+                    else {echo 'upload/item/'.$oneItem[0]['id'].'/'. $oneItem[0]['image'];} ?>"
+                            title="Fujifilm FinePix S2950 Digital Camera">
                             <img src="<?php 
                       if(empty($oneItem[0]['image'])){echo 'upload/item/default.png';}  
                     else {echo 'upload/item/'.$oneItem[0]['id'].'/'. $oneItem[0]['image'];} ?>"
@@ -184,37 +187,37 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 $comments=getcomments($item_id);
 
 ?>
- <div class="view-hide">
-  <span  class="view-hide-comments" data-id="<?=$item_id?>" href="#">view All Comments</span>
- </div>
- <div class="all-comments d-none" id="<?=$item_id?>" >
+                <div class="view-hide">
+                    <span class="view-hide-comments" data-id="<?=$item_id?>" href="#">view All Comments</span>
+                </div>
+                <div class="all-comments d-none" id="<?=$item_id?>">
 
-<?php
+                    <?php
 
 foreach ($comments as $comment) {
  
 
  ?>
-                <!-- Single Comment -->
-                <div class="media mb-4 comment-box">
-                    <img class="d-flex mr-3 rounded-circle" style="width:50px;height:50px" src="<?php 
-                      if(empty($comment['avatar'])){echo 'upload/users/default.png';}  
+                    <!-- Single Comment -->
+                    <div class="media mb-4 comment-box">
+                        <img class="d-flex mr-3 rounded-circle" style="width:50px;height:50px" src="<?php 
+                      if(empty($comment['avatar'])){echo 'upload/user/avatar/default1.png';}  
                     else {echo 'upload/user/avatar/'.$comment['user_id'].'/'. $comment['avatar'];} ?>"
-                        alt="">
-                    <div class="media-body lead">
-                        <h5 class="mt-0">
-                            <?=$comment['userName']?>
-                        </h5>
-                        <p>
-                            <?=$comment['body']?>
-                        </p>
+                            alt="">
+                        <div class="media-body lead">
+                            <h5 class="mt-0">
+                                <?=$comment['userName']?>
+                            </h5>
+                            <p>
+                                <?=$comment['body']?>
+                            </p>
+                        </div>
                     </div>
+
+
+
+                    <?php }?>
                 </div>
-
-
-
-                <?php }?>
-</div>
 
 
                 <!-- //  end comment section -->

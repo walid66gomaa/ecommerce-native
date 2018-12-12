@@ -20,7 +20,7 @@ include "init.php";
                 <?php 
         $items=getData('items','id','DESC',50);
         $first4item=array_slice($items,0,4);
-        $lastitem=array_slice($items,0,sizeof($items));
+        $lastitem=array_slice($items,4,sizeof($items));
         
        ?>
                 <div class="feature d-none d-md-block">
@@ -46,7 +46,7 @@ include "init.php";
                                                     <p class="card-text item-name text-center">
                                                         <?php echo (strlen($item['name'])>10) ?  substr($item['name'],0,10).'...' : $item['name'] ;?>
                                                     </p>
-                                                    <a class="btn btn-danger" href="oneitem.php?item_id=<?=$item['id']?>">View</a>
+                                                    <a class="btn btn-danger btn-sm" href="oneitem.php?item_id=<?=$item['id']?>">View</a>
 
                                                     <span class=" d-inline" href="#">
                                                         <?=$item['price']?></span>
@@ -62,7 +62,11 @@ include "init.php";
                                     <?php 
         $index=4;
         while($index <=sizeof($lastitem) ){
-         $next4item= array_slice($items,$index,$index);
+            $next4item=array();
+            
+         $next4item= array_slice($lastitem,$index,4);
+      
+        
          $index+=4;    
        
        ?>
@@ -79,10 +83,10 @@ include "init.php";
                     else {echo 'upload/item/'.$item['id'].'/'. $item['image'];} ?>"
                                                     alt="Card image cap">
                                                 <div class="card-body carousel-item-option">
-                                                    <p class="card-text  text-centeritem-name">
+                                                    <p class="card-text  text-center item-name">
                                                         <?php echo (strlen($item['name'])>10) ?  substr($item['name'],0,10).'...' : $item['name'] ;?>
                                                     </p>
-                                                    <a class="btn btn-danger" href="oneitem.php?item_id=<?=$item['id']?>">view</a>
+                                                    <a class="btn btn-danger btn-sm" href="oneitem.php?item_id=<?=$item['id']?>">view</a>
 
                                                     <span class=" d-inline" href="#">
                                                         <?=$item['price']?></span>

@@ -29,9 +29,9 @@
 
             <div id="socialMedia" class="pull-right col-md-3">
                 <h5>SOCIAL MEDIA </h5>
-                <a href="#"><img width="60" height="60" src="themes/images/facebook.png" title="facebook" alt="facebook" /></a>
-                <a href="#"><img width="60" height="60" src="themes/images/twitter.png" title="twitter" alt="twitter" /></a>
-                <a href="#"><img width="60" height="60" src="themes/images/youtube.png" title="youtube" alt="youtube" /></a>
+                <a href="#"><img width="60" height="60" src="layout/images/facebook.png" title="facebook" alt="facebook" /></a>
+                <a href="#"><img width="60" height="60" src="layout/images/twitter.png" title="twitter" alt="twitter" /></a>
+                <a href="#"><img width="60" height="60" src="layout/images/youtube.png" title="youtube" alt="youtube" /></a>
             </div>
         </div>
         <p class="pull-right">&copy; Bootshop</p>

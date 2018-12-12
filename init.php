@@ -23,6 +23,7 @@ include $func."function.php";
 include $lang."english.php";
 include $tmp."header.php";
 include $tmp."navbar.php";
+require_once 'vendor/autoload.php';
 
 
 

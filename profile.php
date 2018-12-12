@@ -66,31 +66,34 @@ else{
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
-<div class="time-line-top">
-    <div class="time-line-top2 position-relative">
-<div class="row">
+    <div class="time-line-top">
+        <div class="time-line-top2 position-relative">
+            <div class="row">
 
-  <div class="col-lg-3 col-sm-12">
-    <figure  > 
-        <img class="img-thumbnail profile-img" src="<?php 
-                      if(empty($user['avatar'])){echo 'upload/users/default.png';}  
-                    else {echo 'upload/user/avatar/'.$user['user_id'].'/'. $user['avatar'];} ?>" alt="">
-    </figure>
-<div class="h4  full-name text-center"><?=$user['fullName']?></div>
-  </div>
-  
-  
-  
-  
-<div class="edit"><a class="btn btn-danger " href="editProfile.php">Edit Profile</a></div>
-  
+                <div class="col-lg-3 col-sm-12">
+                    <figure>
+                        <img class="img-thumbnail profile-img" src="<?php 
+                      if(empty($user['avatar'])){echo 'upload/user/avatar/default1.png';}  
+                    else {echo 'upload/user/avatar/'.$user['user_id'].'/'. $user['avatar'];} ?>"
+                            alt="">
+                    </figure>
+                    <div class="h4  full-name text-center">
+                        <?=$user['fullName']?>
+                    </div>
+                </div>
 
+
+
+
+                <div class="edit"><a class="btn btn-danger " href="editProfile.php">Edit Profile</a></div>
+
+
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-            
-    
+
+
 <!-- // end image -->
 
 
@@ -98,13 +101,13 @@ else{
 <!-- start information sections  -->
 
 <div class="container">
-    
+
     <div class='information block'>
         <div class="panel-group">
             <div class="panel panel-success">
-               
+
                 <div class="panel-body">
-                  
+
                     <table class="table">
 
                         <tbody>
@@ -173,7 +176,10 @@ foreach ($items as $item) {
      ?>
                 <div class="row">
                     <div id="gallery" class="col-lg-5">
-                        <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
+                        <a href="<?php 
+                      if(empty($item['image'])){echo 'upload/item/default.png';}  
+                    else {echo 'upload/item/'.$item['id'].'/'. $item['image'];} ?>"
+                            title="">
                             <img src="<?php 
                       if(empty($item['image'])){echo 'upload/item/default.png';}  
                     else {echo 'upload/item/'.$item['id'].'/'. $item['image'];} ?>"
@@ -198,7 +204,7 @@ foreach ($items as $item) {
                     <div class="col-lg-7 position-relative">
                         <h2 class="d-inline">
                             <?=$item['name']?>
-                    </h2>
+                        </h2>
                         <div class="dropdown item-option">
                             <a class=" float-right" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
@@ -263,9 +269,10 @@ if( isset($_SESSION['user']))
                         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
                             <input type="hidden" name="item_id" value="<?=$item['id']?>">
                             <div class="form-group">
-                                <textarea class="form-control" rows="1" onkeyup="auto_grow(this)" name="body"></textarea>
+                                <textarea class="form-control" rows="1" onkeyup="auto_grow(this)" name="body"
+                                    placeholder="Leave Your Comment"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Comment</button>
                         </form>
                     </div>
 
@@ -281,37 +288,37 @@ else {
 $comments=getcomments($item['id']);
 
 ?>
-<div class="view-hide">
-  <span  class="view-hide-comments" data-id="<?=$item['id']?>" href="#">view All Comments</span>
- </div>
- <div class="all-comments d-none" id="<?=$item['id']?>" >
+                <div class="view-hide">
+                    <span class="view-hide-comments" data-id="<?=$item['id']?>" href="#">view All Comments</span>
+                </div>
+                <div class="all-comments d-none" id="<?=$item['id']?>">
 
-<?php
+                    <?php
 foreach ($comments as $comment) {
  
 
  ?>
-                <!-- Single Comment -->
-                <div class="media comment-box">
-                    <img class="d-flex mr-3 rounded-circle" style="width:50px;height:50px" src="<?php 
-                      if(empty($comment['avatar'])){echo 'upload/users/default.png';}  
+                    <!-- Single Comment -->
+                    <div class="media comment-box">
+                        <img class="d-flex mr-3 rounded-circle" style="width:50px;height:50px" src="<?php 
+                      if(empty($comment['avatar'])){echo 'upload/user/avatar/default1.png';}  
                     else {echo 'upload/user/avatar/'.$comment['user_id'].'/'. $comment['avatar'];} ?>"
-                        alt="">
-                    <div class="media-body lead">
-                        <h5 class="mt-0">
-                            <?=$comment['userName']?>
-                        </h5>
-                        <p>
-                            <?=$comment['body']?>
-                        </p>
+                            alt="">
+                        <div class="media-body lead">
+                            <h5 class="mt-0">
+                                <?=$comment['userName']?>
+                            </h5>
+                            <p>
+                                <?=$comment['body']?>
+                            </p>
+                        </div>
                     </div>
+
+
+
+                    <?php }?>
+
                 </div>
-
-
-
-                <?php }?>
-
-</div>
 
                 <!-- Modal -->
                 <div class="modal fade and carousel slide" id="exampleModal<?=$item['id']?>" data-ride="carousel"
