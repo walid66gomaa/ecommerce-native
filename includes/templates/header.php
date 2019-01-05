@@ -39,5 +39,6 @@
     <link rel="stylesheet" href="<?php echo $css; ?>bootstrap.css">
     <link rel="stylesheet" href="<?php echo $css; ?>font-awesome.css">
     <link rel="stylesheet" href="<?php echo $css; ?>mystyle.css">
+  
 
 </head>

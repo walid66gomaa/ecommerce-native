@@ -149,7 +149,9 @@ else{
 
 <?php 
 
+
 $items=getItems('items.user_id',$sessionUserId);
+
   ?>
 
 
@@ -179,7 +181,8 @@ foreach ($items as $item) {
                         <a href="<?php 
                       if(empty($item['image'])){echo 'upload/item/default.png';}  
                     else {echo 'upload/item/'.$item['id'].'/'. $item['image'];} ?>"
-                            title="">
+                            title="Fujifilm FinePix S2950 Digital Camera">
+
                             <img src="<?php 
                       if(empty($item['image'])){echo 'upload/item/default.png';}  
                     else {echo 'upload/item/'.$item['id'].'/'. $item['image'];} ?>"
@@ -270,7 +273,7 @@ if( isset($_SESSION['user']))
                             <input type="hidden" name="item_id" value="<?=$item['id']?>">
                             <div class="form-group">
                                 <textarea class="form-control" rows="1" onkeyup="auto_grow(this)" name="body"
-                                    placeholder="Leave Your Comment"></textarea>
+                                    placeholder="Leave Your Comment" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Comment</button>
                         </form>

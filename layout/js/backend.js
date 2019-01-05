@@ -36,9 +36,25 @@ $('.show-pass').click(function(){
 );
 
 $('.confirm').click(function(){
-   return confirm('Are You Sure to Do this');
+   return confirm('Are You Sure to Do delete  this');
 });
+$(function(){
+    $('.confirm').click(function(){
+        var item_id= $(this).attr('id');
+        var $ele = $(this).parent().parent();
+        $.ajax({
+            type:'GET',
+            url:'itemOption.php?do=delete',
+            data:{'item_id':item_id},
+            success: function(data){ 
+            
+                 $('#'+item_id).fadeOut().remove();
+               
+                }
 
+            })
+        })
+});
 function auto_grow(element) {
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
@@ -52,7 +68,7 @@ $('.'+$(this).data('class')).fadeIn(500).removeClass('d-none');
 // $('form')
 
 })
-
+//hide all comments
 $('.view-hide-comments').click(function(){
     
    if($(this).text()=="view All Comments")
@@ -66,6 +82,7 @@ $('.view-hide-comments').click(function(){
     $(this).text("view All Comments")
    }
 })
+
 function view(element){
     
     if(element.value.length<50){
@@ -124,4 +141,14 @@ e.preventDefault();
 }
 });
 });
-// end multi image
+
+//color search word  
+$(document).ready(function(){
+   var word=$("#searchValue").html();
+
+   var word2 = new RegExp(word, 'g');
+    $(".search").children().each(function() {           
+        $(this).html($(this).html().replace(word2,"<span class='marker'>"+word+"</span>"));
+    });
+
+})

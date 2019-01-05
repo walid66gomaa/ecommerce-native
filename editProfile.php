@@ -9,6 +9,95 @@ $pageTitle=$_SESSION['user'];
 include "init.php";
 
 
+?>
+
+<div class="container">
+    <div class="time-line-top">
+        <div class="time-line-top2 position-relative">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-12">
+                    <figure>
+                        <img class="img-thumbnail profile-img" src="<?php 
+                      if(empty($user['avatar'])){echo 'upload/user/avatar/default1.png';}  
+                    else {echo 'upload/user/avatar/'.$user['user_id'].'/'. $user['avatar'];} ?>"
+                            alt="">
+                    </figure>
+                    <div class="h4  full-name text-center">
+                        <?=$user['fullName']?>
+                    </div>
+                </div>
+
+
+
+
+                <div class="edit"><a class="btn btn-danger " href="editProfile.php">Edit Profile</a></div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- // end image -->
+
+
+
+<!-- start information sections  -->
+
+<div class="container">
+
+    <div class='information block'>
+        <div class="panel-group">
+            <div class="panel panel-success">
+
+                <div class="panel-body">
+
+                    <table class="table">
+
+                        <tbody>
+
+                            <tr>
+                                <th scope="row">Full Name</th>
+                                <td scope="row">
+                                    <?=$user['fullName']?>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>User Name</th>
+                                <td>
+                                    <?=$user['userName']?>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Email</th>
+                                <td>
+                                    <?=$user['email']?>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php
+
+
+
+
+
+
+
+
         $user_id=$sessionUserId;
         $stmt=$con->prepare("   SELECT * FROM users WHERE user_id=? LIMIT 1");
         $stmt->execute(array($user_id));

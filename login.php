@@ -84,14 +84,14 @@ include "init.php";
                                 <input type="text" name="userName" id="name" placeholder="User Name" required="required" />
                             </div>
                             <div class="form-group col-sm-10">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <label for="name"><i class="fa fa-address-book" aria-hidden="true"></i></label>
                                 <input type="text" name="fullName" id="name" placeholder="Full Name" required="required" />
                             </div>
 
 
 
                             <div class="form-group col-sm-10">
-                                <label for="email"><i class="fa fa-email"></i></label>
+                                <label for="email"><i class="fa fa-envelope" aria-hidden="true"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email" required="required" />
                             </div>
 

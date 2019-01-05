@@ -1,11 +1,11 @@
 <?php
 session_start();
-$pageTitle=$_GET['catName'];
+$pageTitle="search".$_GET['searchValue'];
 
 include "init.php";
 
-
-$items=getItems('items.cat_id',$_GET['cat_id']);
+$searchValue=$_GET['searchValue'];
+$items=search($searchValue);
  
 ?>
 <div id="mainBody">
@@ -14,17 +14,18 @@ $items=getItems('items.cat_id',$_GET['cat_id']);
             <?php include $tmp."sidebar.php";?>
 
 
-
+  
             <!-- main body  -->
-            <div class="col-lg-9">
+            <div class="col-lg-9 search">
+            <div id="searchValue" class="d-none"> <?=$_GET['searchValue'];?></div>
                 <ul class="breadcrumb">
                     <li><a href="index.php">Home</a> <span class="divider">/</span></li>
-                    <li class="active">
-                        <?=$_GET['catName']?>
+                    <li id="" class="active">
+                        <?=$searchValue?>
                     </li>
                 </ul>
                 <h3>
-                    <?= $_GET['catName']?><small class="pull-right">
+                    <?= $searchValue?><small class="pull-right">
                         <?=sizeof($items)?> products are available </small></h3>
                 <hr class="" />
 

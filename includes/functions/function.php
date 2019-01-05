@@ -165,6 +165,21 @@ function rrmdir($dir) {
       rmdir($dir);
    }
  }
+
+
+ function search($value,$order='DESC')
+{
+global $con;
+
+$stm=$con->prepare("SELECT * 
+                    from items 
+                    WHERE name LIKE ? OR description LIKE ?
+                    ORDER BY name $order");
+$stm->execute(array('%'.$value.'%','%'.$value.'%'));
+$rows=$stm->fetchAll();
+return $rows;
+
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

@@ -640,3 +640,8 @@ figure
     background-color:#f8f8f8;
 
 }
+/* marker search */
+.marker {
+    background-color: yellow;
+    font-weight: bold;
+  }

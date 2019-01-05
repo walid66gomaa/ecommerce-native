@@ -41,7 +41,7 @@ $stmt->execute(array( ++$purchase[0]['num'],$purchase[0]['id']));
       
       $msg='<div class="alert alert-success"> you buy it successfuly  it added to your purchases purchase menu </div>';
 
-      redirect($msg,'back',2);
+      redirect($msg,'purchase.php',2);
  
  
  
